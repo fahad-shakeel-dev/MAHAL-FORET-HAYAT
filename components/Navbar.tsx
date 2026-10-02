@@ -12,7 +12,7 @@ import { ProductsMenu } from './ProductsMenu';
 // Navigation links configuration
 const navigationLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about' },
+  { label: 'About', href: '/about' },
   { label: 'Brands', href: '/brands' },
   { label: 'Projects', href: '/projects' },
   { label: 'Contact Us', href: '/contact' },
@@ -327,7 +327,7 @@ export function Navbar() {
                 className="py-2.5 font-medium text-neutral-800 hover:text-brand-700 transition-colors border-b border-neutral-50" 
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                About Us
+                About
               </Link>
 
               <div className="py-2">

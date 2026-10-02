@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Check, FileText, Fingerprint, PackageCheck, ShieldCheck, UploadCloud } from 'lucide-react';
+import { ArrowRight, Check, FileText, Fingerprint, PackageCheck, ShieldCheck } from 'lucide-react';
 import { QuoteForm } from './HomeInteractions';
 
 const brands = [
@@ -33,12 +33,11 @@ const brands = [
 ];
 
 export function BrandEcosystem() {
-  function inquire(detail: string, upload = false) {
+  function inquire(detail: string) {
     window.dispatchEvent(new CustomEvent('quote-prefill', { detail }));
     const section = document.getElementById('brand-inquiry');
     section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (upload) section?.querySelector<HTMLInputElement>('input[type="file"]')?.click();
-    else section?.querySelector<HTMLInputElement>('input[name="company"]')?.focus({ preventScroll: true });
+    section?.querySelector<HTMLInputElement>('input[name="contact"]')?.focus({ preventScroll: true });
   }
 
   return <div className="homepage bg-white text-neutral-900">
@@ -49,6 +48,7 @@ export function BrandEcosystem() {
       </div>
     </section>
 
+    <section className="home-container pt-12"><p className="home-eyebrow">Our cement brands</p><h2 className="home-heading mt-3">Cement for your next build.</h2><div className="mt-7 grid gap-4 sm:grid-cols-3">{['Riyadh Cement', 'Saudi Cement', 'Eastern'].map(name => <article key={name} className="border border-neutral-200 bg-neutral-50 p-6"><h3 className="text-xl font-semibold">{name}</h3><p className="mt-3 text-sm leading-6 text-neutral-500">Ask about cement types, available grades, bag sizes and current pricing.</p><Link href="/products#cement" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-700">Explore cement<ArrowRight className="h-4 w-4" /></Link></article>)}</div></section>
     <div className="home-container space-y-7 py-12 sm:py-16">{brands.map(brand => <section key={brand.id} id={brand.id} aria-labelledby={`${brand.id}-title`} className="overflow-hidden border border-neutral-200">
       <div className="flex flex-col gap-3 border-b border-neutral-200 bg-neutral-50 px-6 py-5 sm:flex-row sm:items-center sm:px-8"><span className="text-xs font-semibold tracking-widest text-brand-700">{brand.number} / BRAND</span><h2 id={`${brand.id}-title`} className="text-xl font-semibold tracking-tight sm:text-2xl">{brand.name}<span className="mt-1 block text-sm font-normal tracking-normal text-neutral-500 sm:ml-3 sm:inline">{brand.tagline}</span></h2></div>
       <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
@@ -59,7 +59,7 @@ export function BrandEcosystem() {
 
     <section className="border-y border-neutral-200 bg-neutral-50 py-10"><div className="home-container"><p className="home-eyebrow text-center">Product verification</p><h2 className="mt-3 text-center text-xl font-semibold">Check the material behind the label.</h2><div className="mt-7 grid gap-5 sm:grid-cols-3">{[{ icon: PackageCheck, title: 'Origin & packaging', text: 'Request product-origin information and original packaging details.' }, { icon: Fingerprint, title: 'Batch traceability', text: 'Check batch identification and supporting documents for the selected material.' }, { icon: ShieldCheck, title: 'Project compliance', text: 'Request applicable certificates and test evidence, including SASO requirements where relevant.' }].map(item => <div key={item.title} className="flex gap-3 border border-neutral-200 bg-white p-5"><item.icon className="h-6 w-6 shrink-0 text-brand-700" strokeWidth={1.5} /><div><h3 className="text-sm font-semibold">{item.title}</h3><p className="mt-2 text-xs leading-6 text-neutral-500">{item.text}</p></div></div>)}</div><p className="mt-5 text-center text-[11px] leading-6 text-neutral-500">Standards vary by product and specification. Brand names identify the material range; they do not establish company authorization or blanket product certification.</p></div></section>
 
-    <section className="home-container py-12 sm:py-16"><div className="bg-surface-dark p-7 text-white sm:p-10"><p className="home-eyebrow !text-brand-400">Technical & project support</p><h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">Looking for a specific product or brand line?</h2><p className="mt-4 max-w-2xl text-sm leading-7 text-neutral-300">Share the product name, application or project specification. Our team can help you review the material options and request supporting documentation.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row"><button type="button" onClick={() => inquire('Please contact me about product selection and technical support for my project.')} className="home-button bg-brand-700 text-white hover:bg-brand-800">Contact technical sales<ArrowRight className="h-4 w-4" /></button><button type="button" onClick={() => inquire('Please review my project BOQ and advise on suitable material systems.', true)} className="home-button border border-white/30 hover:bg-white/10"><UploadCloud className="h-4 w-4" />Upload project BOQ</button></div></div></section>
+    <section className="home-container py-12 sm:py-16"><div className="bg-surface-dark p-7 text-white sm:p-10"><p className="home-eyebrow !text-brand-400">Technical & project support</p><h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">Looking for a specific product or brand line?</h2><p className="mt-4 max-w-2xl text-sm leading-7 text-neutral-300">Share the product name, application or project specification. Our team can help you review the material options and request supporting documentation.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row"><button type="button" onClick={() => inquire('Please contact me about product selection and technical support for my project.')} className="home-button bg-brand-700 text-white hover:bg-brand-800">Contact technical sales<ArrowRight className="h-4 w-4" /></button><button type="button" onClick={() => inquire('Please help me choose suitable materials.')} className="home-button border border-white/30 hover:bg-white/10">Ask about materials</button></div></div></section>
     <section id="brand-inquiry" className="border-t border-neutral-200 bg-neutral-50 py-12"><div className="home-container grid gap-8 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="home-eyebrow">Your project requirements</p><h2 className="home-heading mt-3">The right information.<br />A clearer specification.</h2><p className="mt-5 max-w-md text-sm leading-7 text-neutral-500">Tell us which product brand or material system you are considering. Include your application, site details and any documentation requirements.</p></div><QuoteForm /></div></section>
   </div>;
 }

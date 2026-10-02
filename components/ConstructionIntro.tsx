@@ -35,9 +35,6 @@ export function ConstructionIntro({ children }: { children: React.ReactNode }) {
               </defs>
               <circle cx="335" cy="180" r="155" fill="url(#intro-glow)" />
               <circle cx="460" cy="85" r="35" fill="#c5ced3" opacity=".07" />
-              <g className="construction-blueprint" fill="none" stroke="#71828b" strokeWidth="1" strokeDasharray="4 6" opacity=".3">
-                <path d="M225 290V195l112-87 113 87v95M220 310h235M225 303v14m225-14v14M460 195v95m-6-95h12m-12 95h12" />
-              </g>
               <g fill="none" stroke="#414b52" strokeWidth="2">
                 <path d="M50 275V180h55v95m400 0V150h45v125M65 200h25m-25 22h25m430-48h15m-15 22h15" />
               </g>
@@ -46,9 +43,14 @@ export function ConstructionIntro({ children }: { children: React.ReactNode }) {
               </g>
               <rect x="139" y="93" width="45" height="30" rx="4" fill="url(#intro-metal)" />
               <rect x="148" y="99" width="25" height="15" rx="2" fill="url(#intro-glass)" />
+              <path className="construction-cable" d="M209 68v68" stroke="#9ca8ae" strokeWidth="2" />
               <g className="construction-hook" stroke="#9ca8ae" strokeWidth="3" fill="none">
-                <path d="M345 68v68m-6 0a7 7 0 1 0 12 5M345 148l-25 22m25-22 25 22" />
-                <rect x="314" y="169" width="62" height="22" rx="3" fill="#b5b1a8" stroke="none" />
+                <path d="M203 136a7 7 0 1 0 12 5" />
+                <path className="construction-slings" d="M209 148l-20 21m20-21 20 21" strokeWidth="2" />
+              </g>
+              <g className="construction-materials">
+                <rect x="188" y="169" width="42" height="22" rx="2" fill="#b5b1a8" />
+                <path d="M188 180h42m-28-11v11m14 0v11" stroke="#858178" strokeWidth="1.5" />
               </g>
               <g className="construction-house">
                 <rect x="245" y="197" width="185" height="83" rx="3" fill="url(#intro-wall)" />
@@ -59,12 +61,6 @@ export function ConstructionIntro({ children }: { children: React.ReactNode }) {
                   <rect x="267" y="216" width="29" height="29" rx="2" />
                   <rect x="378" y="216" width="29" height="29" rx="2" />
                 </g>
-              </g>
-              <g className="construction-worker">
-                <path d="M452 278v-28m-8 2 8-8 9 10m-9 12-7 17m7-17 7 17" fill="none" stroke="#d7b975" strokeWidth="6" strokeLinecap="round" />
-                <circle cx="452" cy="235" r="7" fill="#e8d4a7" />
-                <path d="M442 232h20m-17-2a7 7 0 0 1 14 0" stroke="#cba455" strokeWidth="4" strokeLinecap="round" />
-                <path d="M448 245h8v15h-8Z" fill="#cba455" />
               </g>
               <g className="construction-truck">
                 <rect x="65" y="244" width="91" height="32" rx="4" fill="url(#intro-metal)" />

@@ -3,13 +3,16 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUp, FileText, MapPin, MessageSquare, UploadCloud } from 'lucide-react';
 
 const companyLinks = [
-  { label: 'About us', href: '/about' },
+  { label: 'About', href: '/about' },
   { label: 'Our brands', href: '/brands' },
   { label: 'Project applications', href: '/projects' },
   { label: 'Contact us', href: '/contact' },
 ];
 const solutionLinks = [
   { label: 'Product catalog', href: '/products' },
+  { label: 'Cement', href: '/products#cement' },
+  { label: 'Sand', href: '/products#sand' },
+  { label: 'Crushed stone / Bajri', href: '/products#bajri' },
   { label: 'Tiling & grouting', href: '/products/ceramic-tile-fix' },
   { label: 'Waterproofing systems', href: '/products/vetonit-cool-top' },
   { label: 'Concrete repair', href: '/products/vetorep-cr523' },
@@ -30,8 +33,8 @@ export function Footer() {
       <nav aria-label="Footer product navigation"><h2 className={headingStyle}><span className="h-px w-5 bg-brand-500" />Products & solutions</h2><ul className="space-y-3">{solutionLinks.map(link => <li key={link.href}><Link href={link.href} className={linkStyle}>{link.label}</Link></li>)}</ul></nav>
       <nav aria-label="Footer support navigation"><h2 className={headingStyle}><span className="h-px w-5 bg-brand-500" />Project support</h2><ul className="space-y-4">
         <li><Link href="/contact#quote" className={`${linkStyle} flex items-start gap-3`}><MessageSquare className="mt-1 h-4 w-4 shrink-0 text-brand-400" />Project inquiries</Link></li>
-        <li><Link href="/#resources" className={`${linkStyle} flex items-start gap-3`}><FileText className="mt-1 h-4 w-4 shrink-0 text-brand-400" />Technical documents</Link></li>
-        <li><Link href="/contact#quote" className={`${linkStyle} flex items-start gap-3`}><UploadCloud className="mt-1 h-4 w-4 shrink-0 text-brand-400" />BOQ & specification assistance</Link></li>
+        <li><Link href="/contact?purpose=technical#quote" className={`${linkStyle} flex items-start gap-3`}><FileText className="mt-1 h-4 w-4 shrink-0 text-brand-400" />Technical documents</Link></li>
+        <li><Link href="/contact#quote" className={`${linkStyle} flex items-start gap-3`}><UploadCloud className="mt-1 h-4 w-4 shrink-0 text-brand-400" />Material inquiries</Link></li>
         <li><Link href="/contact#delivery" className={`${linkStyle} flex items-start gap-3`}><MapPin className="mt-1 h-4 w-4 shrink-0 text-brand-400" />Delivery & locations</Link></li>
       </ul></nav>
     </div>

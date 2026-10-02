@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+.section-reveal { transition: opacity 650ms ease, transform 650ms ease; }
+.section-reveal[data-reveal="pending"] { opacity: 0; transform: translateY(18px); }
+.section-reveal[data-reveal="visible"] { opacity: 1; transform: translateY(0); }
+.brand-tile { transition: opacity 600ms ease, transform 600ms ease, border-color 200ms ease; }
+.section-reveal[data-reveal="pending"] .brand-tile { opacity: 0; transform: translateY(12px); }
+.brand-tile:hover { border-color: #cba455; }
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal, .brand-tile { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
 .construction-intro {
   position: fixed;
   inset: 0;
@@ -18,14 +28,17 @@
 .construction-progress { width: 100px; height: 2px; margin: 1.75rem auto 0; overflow: hidden; border-radius: 999px; background: #ffffff15; }
 .construction-progress span { display: block; height: 100%; background: #cba455; transform-origin: left; animation: construction-progress 3s linear both; }
 .construction-house { animation: construction-build 1.6s 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.construction-worker { animation: construction-copy 0.6s 1.4s both; }
-.construction-blueprint { animation: construction-copy 0.8s both; }
+.construction-cable { transform-box: fill-box; transform-origin: top; animation: construction-cable 2.8s ease-in-out both; }
 .construction-hook { animation: construction-lift 2.8s ease-in-out both; }
+.construction-materials { animation: construction-unload 2.8s ease-in-out both; }
+.construction-slings { animation: construction-release 2.8s linear both; }
 .construction-truck { animation: construction-delivery 1.8s ease-out both; }
 @keyframes construction-build { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
-@keyframes construction-copy { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes construction-lift { 0% { transform: translateY(-30px); } 55%, 75% { transform: translateY(45px); } 100% { transform: translateY(-15px); } }
-@keyframes construction-delivery { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes construction-lift { 0%, 15% { transform: translateY(0); } 60%, 75% { transform: translateY(95px); } 100% { transform: translateY(0); } }
+@keyframes construction-cable { 0%, 15% { transform: scaleY(1); } 60%, 75% { transform: scaleY(2.397); } 100% { transform: scaleY(1); } }
+@keyframes construction-unload { 0%, 15% { transform: translateY(0); } 60%, 100% { transform: translateY(95px); } }
+@keyframes construction-release { 0%, 70% { opacity: 1; } 75%, 100% { opacity: 0; } }
+@keyframes construction-delivery { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: translateX(-20px); } }
 @keyframes construction-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @media (prefers-reduced-motion: reduce) {
   .construction-intro { display: none; animation: none; }

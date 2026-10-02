@@ -3,7 +3,7 @@ import { BrandEcosystem } from '@/components/BrandEcosystem';
 
 export const metadata: Metadata = {
   title: 'Our Brands | MAHAL FORET HAYAT',
-  description: 'Explore the Vetonit, Insuwrap and Saveto product brands in our construction material range, with application information and technical document requests.',
+  description: 'Explore Riyadh Cement, Saudi Cement, Eastern, Vetonit, Insuwrap and Saveto in our construction material range.',
 };
 
 export default function BrandsPage() {
