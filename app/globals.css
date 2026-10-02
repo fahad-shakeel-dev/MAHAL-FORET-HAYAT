@@ -1,26 +1,232 @@
 @import "tailwindcss";
 
 :root {
+  --brand-50: #fbf8f0;
+  --brand-100: #f5ecd5;
+  --brand-200: #e8d4a7;
+  --brand-300: #d7b975;
+  --brand-400: #cba455;
+  --brand-500: #bd9344;
+  --brand-600: #98712e;
+  --brand-700: #7c591f;
+  --brand-800: #65471e;
+  --brand-900: #533b1d;
+  --brand-950: #30200d;
+  --neutral-50: #fafaf9;
+  --neutral-100: #f3f2ef;
+  --neutral-200: #e5e3dd;
+  --neutral-300: #d0cdc5;
+  --neutral-400: #a4a19a;
+  --neutral-500: #74716b;
+  --neutral-600: #57544e;
+  --neutral-700: #403e39;
+  --neutral-800: #292824;
+  --neutral-900: #1b1b19;
+  --neutral-950: #111110;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--neutral-900);
+  --surface: var(--neutral-50);
+  --surface-muted: var(--neutral-100);
+  --surface-dark: var(--neutral-900);
+  --surface-deep: var(--neutral-950);
+  --accent: var(--brand-700);
+  --border: var(--neutral-200);
+  --brand-shadow: 0 8px 30px rgb(189 147 68 / 12%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-950: var(--neutral-950);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-dark: var(--surface-dark);
+  --color-surface-deep: var(--surface-deep);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.homepage {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.home-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.home-eyebrow {
+  color: var(--accent);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.home-heading {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.home-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.125rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background-color 180ms;
+}
+
+.home-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--neutral-600);
+}
+
+.home-input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--neutral-300);
+  background: var(--background);
+  padding: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--foreground);
+  border-radius: 0;
+}
+
+.home-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.homepage :is(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.homepage section[id], .homepage footer[id] {
+  scroll-margin-top: 8rem;
+}
+
+@media (min-width: 640px) {
+  .home-container { padding-inline: 1.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .home-container { padding-inline: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage *, .homepage *::before, .homepage *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.mobile-navigation-drawer {
+  transform: translateX(-100%);
+  transition: transform 250ms ease, display 250ms allow-discrete,
+    overlay 250ms allow-discrete;
+}
+
+.mobile-navigation-drawer[open] {
+  transform: translateX(0);
+}
+
+.mobile-navigation-drawer::backdrop {
+  background: color-mix(in srgb, var(--surface-deep) 45%, transparent);
+  opacity: 0;
+  transition: opacity 250ms ease, display 250ms allow-discrete,
+    overlay 250ms allow-discrete;
+}
+
+.mobile-navigation-drawer[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .mobile-navigation-drawer[open] {
+    transform: translateX(-100%);
+  }
+
+  .mobile-navigation-drawer[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-navigation-drawer,
+  .mobile-navigation-drawer::backdrop {
+    transition: none;
+  }
+}
+
+/* Keep mobile controls readable and comfortable without changing desktop layouts. */
+.home-button { min-height: 3rem; }
+.home-button svg { flex-shrink: 0; }
+.homepage :is(input, select, textarea) { scroll-margin-block: 7rem; }
+@media (max-width: 639px) {
+  .homepage { overflow-wrap: break-word; }
+  .homepage .home-input,
+  nav[aria-label="Main navigation"] input { font-size: 1rem; }
+  .homepage :is(button, summary) { min-height: 2.75rem; }
+  .homepage input[type="checkbox"], .homepage input[type="radio"] {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    accent-color: var(--accent);
+  }
+  .homepage input[type="file"] { min-width: 0; max-width: 100%; }
+  .homepage input[type="file"]::file-selector-button { min-height: 2.75rem; }
+  .project-material-ledger thead { display: none; }
+  .project-material-ledger tbody,
+  .project-material-ledger tr,
+  .project-material-ledger th,
+  .project-material-ledger td { display: block; width: 100%; }
+  .project-material-ledger th { padding: 1.25rem 1rem .625rem; background: var(--surface-muted); }
+  .project-material-ledger td { padding: .75rem 1rem; }
+  .project-material-ledger td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: .375rem;
+    color: var(--foreground);
+    font-size: .6875rem;
+    font-weight: 600;
+  }
+  .project-material-ledger td:last-child { padding-bottom: 1.25rem; }
 }
