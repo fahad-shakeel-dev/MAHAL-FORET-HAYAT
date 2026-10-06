@@ -1,0 +1,82 @@
+{
+  "plastering-sand": {
+    "image": "materials/plastering-sand.jpg",
+    "source": "https://soilyourself.com.au/wp-content/uploads/2018/04/PLASTER-SAND-01.jpg",
+    "grade": "Plastering sand"
+  },
+  "washed-sand": {
+    "image": "materials/washed-sand.jpg",
+    "source": "https://soilyourself.com.au/wp-content/uploads/2015/10/WASHED-WHITE-SAND-01.jpg",
+    "grade": "Washed sand"
+  },
+  "masonry-sand": {
+    "image": "materials/masonry-sand.jpg",
+    "source": "https://soilyourself.com.au/wp-content/uploads/2018/04/BRICKIES-SAND-01-3.jpg",
+    "grade": "Masonry sand"
+  },
+  "regular-sand": {
+    "image": "materials/regular-sand.jpg",
+    "source": "https://nooralyamama.com/wp-content/uploads/2019/07/Red-Sand.jpg",
+    "grade": "Natural construction sand"
+  },
+  "aggregate-zero": {
+    "image": "materials/aggregate-zero.jpg",
+    "source": "https://soilyourself.com.au/wp-content/uploads/2018/04/GRACDUST-01.jpg",
+    "grade": "Crusher fines"
+  },
+  "backfill-sand": {
+    "image": "materials/backfill-sand.jpg",
+    "source": "https://nooralyamama.com/wp-content/uploads/2019/08/red-sand-2.jpg",
+    "grade": "Filling sand"
+  },
+  "aggregate-3-4": {
+    "image": "materials/aggregate-3-4.jpg",
+    "source": "https://nooralyamama.com/wp-content/uploads/2019/08/Aggregate-3.4.jpg",
+    "grade": "3/4-inch aggregate"
+  },
+  "crusher-sand": {
+    "image": "materials/crusher-sand.jpg",
+    "source": "https://static.wixstatic.com/media/a07069_66ca3abab6414ac293ed0bb092433f03~mv2.jpg",
+    "grade": "Manufactured sand"
+  },
+  "base-course": {
+    "image": "materials/base-course.jpg",
+    "source": "https://soilyourself.com.au/wp-content/uploads/2018/04/GRARB.jpg",
+    "grade": "Road base"
+  },
+  "aggregate-3-16": {
+    "image": "materials/aggregate-3-16.jpg",
+    "source": "https://nooralyamama.com/wp-content/uploads/2019/08/Aggregate-3.16.jpg",
+    "grade": "3/16-inch aggregate"
+  },
+  "aggregate-3-8": {
+    "image": "materials/aggregate-3-8.jpg",
+    "source": "https://nooralyamama.com/wp-content/uploads/2019/08/Aggregate-3.8.jpg",
+    "grade": "3/8-inch aggregate"
+  },
+  "crushed-aggregate": {
+    "image": "materials/crushed-aggregate.jpg",
+    "source": "https://nooralyamama.com/wp-content/uploads/2026/08/WhatsApp-Image-2026-08-22-at-14.03.14-e1787817740154.jpeg",
+    "grade": "Fully crushed aggregate"
+  },
+  "black-filling": {
+    "image": "materials/black-filling.jpg",
+    "source": "https://nooralyamama.com/wp-content/uploads/2019/07/DSC_0423-e1787819296111.jpg",
+    "grade": "Black quarry sand / fines for filling"
+  },
+  "rock-4-inch": {
+    "image": "materials/rock-4-inch.jpg",
+    "source": "https://www.siteone.com/medias/sys_master/PimProductImages/assets/ProductAssets/US/NoBrand/itemImage/551070/image-thumb__551070__zoom/551082441870_itemimage_4055_1.07219de4/551082441870-itemimage-4055-1.07219de4.jpg",
+    "grade": "4-inch drainage rock"
+  },
+  "sub-base": {
+    "image": "materials/sub-base.jpg",
+    "source": "https://soilyourself.com.au/wp-content/uploads/2015/10/LIMESTONE-19MM-01.jpg",
+    "grade": "Graded crushed limestone base material"
+  },
+  "stone-1-to-6-inch": {
+    "image": "materials/stone-1-to-6-inch.png",
+    "source": "https://www.foleymaterials.com/wp-content/uploads/2017/12/surgeStone.png",
+    "grade": "1–6-inch surge stone"
+  }
+}

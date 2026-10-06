@@ -1,7 +1,9 @@
 import { groups, categoryIds, productSlug } from './product-navigation';
+import { bulkProducts } from './bulk-products';
+import { savetoProducts } from './saveto-products';
 
-export type ProductOverview = { slug: string; name: string; category: string; categoryId: string; image: string; description: string; uses: string[]; features: string[]; facts: [string, string][]; family?: boolean };
-export const products: ProductOverview[] = [
+export type ProductOverview = { slug: string; name: string; arabicName?: string; category: string; categoryId: string; image: string; description: string; uses: string[]; features: string[]; facts: [string, string][]; family?: boolean; representativeImage?: boolean; source?: string; price?: number; originalPrice?: number; priceCheckedAt?: string };
+const existingProducts: ProductOverview[] = [
   { slug: 'ceramic-tile-fix', name: 'Ceramic Tile Fix', category: 'Tile & Stone Fixing', categoryId: 'tiling', image: 'tiling.png', description: 'Cementitious adhesive for internal ceramic and terrazzo tile installations.', uses: ['Internal wall tiling', 'Internal floor tiling'], features: ['Water-mixed powder', 'Slip-resistant adhesive'], facts: [['Application thickness', '3–10 mm'], ['Packaging', '20 kg / 25 kg bags']] },
   { slug: 'vetonit-cool-top', name: 'Vetonit Cool Top', category: 'Waterproofing & Sealing', categoryId: 'waterproofing', image: 'waterproofing.png', description: 'A flexible, liquid-applied roof membrane based on a waterborne polyurethane-acrylic hybrid.', uses: ['Exposed concrete roofs and roof decks', 'Sloped roofs', 'Protection of spray polyurethane foam insulation'], features: ['Single-component system', 'Reflective white finish', 'Flexible waterproofing'], facts: [['Product form', 'Liquid-applied membrane'], ['Application tools', 'Brush, roller or airless spray']] },
   { slug: 'vetorep-cr523', name: 'Vetorep CR523', category: 'Concrete Repair', categoryId: 'concrete-repairs', image: 'concrete-repairs.png', description: 'A polymer-modified cementitious fairing coat for smoothing concrete surface imperfections.', uses: ['Concrete surface blemishes', 'Blow holes and cosmetic surface repairs', 'Finishing concrete surfaces'], features: ['Single-component powder', 'Water-mixed on site', 'Smooth paste consistency'], facts: [['Fairing thickness', 'Up to 3 mm'], ['Blow-hole filling', 'Up to 5 mm']] },
@@ -11,4 +13,5 @@ export const products: ProductOverview[] = [
 
 const groupImages = ['plasters-masonry.png', 'concrete-repairs.png', 'tiling.png', 'flooring.png', 'waterproofing.png', 'plasters-masonry.png'];
 export const materialFamilies: ProductOverview[] = groups.flatMap((group, index) => group.items.map(item => ({ slug: productSlug(item.label), name: item.label, category: group.title, categoryId: categoryIds[index], image: groupImages[index], family: true, description: `Explore ${item.label.toLowerCase()} within our ${group.title.toLowerCase()} range. Discuss the substrate, exposure and project specification with our team to identify the appropriate product.`, uses: ['Product selection depends on the application and specification.', 'Share substrate and site conditions with your inquiry.'], features: ['Application-focused selection', 'Technical documentation on request', 'Project support'], facts: [['Material family', group.title], ['Product variants', 'Confirmed against your project requirements']] })));
-export const allOverviews = [...products, ...materialFamilies];
+export const products: ProductOverview[] = [...savetoProducts, ...bulkProducts];
+export const allOverviews = [...products, ...existingProducts, ...materialFamilies];

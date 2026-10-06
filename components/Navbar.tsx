@@ -13,7 +13,7 @@ import { ProductsMenu } from './ProductsMenu';
 const navigationLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Brands', href: '/brands' },
+  // { label: 'Brands', href: '/brands' },
   { label: 'Projects', href: '/projects' },
   { label: 'Contact Us', href: '/contact' },
 ];

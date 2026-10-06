@@ -1,13 +1,13 @@
-import { allOverviews, type ProductOverview } from './products';
+import { products, type ProductOverview } from './products';
 
 function normalize(value: string) {
-  return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  return value.normalize('NFKD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 }
 export function matchesProduct(product: ProductOverview, query: string) {
   const tokens = normalize(query).split(/\s+/).filter(Boolean);
-  const text = normalize([product.name, product.slug, product.category, product.description, ...product.uses, ...product.features].join(' '));
+  const text = normalize([product.name, product.arabicName ?? '', product.slug, product.category, product.description, ...product.facts.flat(), ...product.uses, ...product.features].join(' '));
   return tokens.length > 0 && tokens.every(token => text.includes(token));
 }
 export function searchProducts(query: string) {
-  return allOverviews.filter(product => matchesProduct(product, query));
+  return products.filter(product => matchesProduct(product, query));
 }

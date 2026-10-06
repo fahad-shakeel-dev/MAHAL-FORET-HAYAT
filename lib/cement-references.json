@@ -1,0 +1,17 @@
+{
+  "riyadh-opc": {
+    "price": 13.6,
+    "source": "https://www.masdaronline.com/en/sar/bg/cement/cement-bags/portland-cement/opc-cement-50kg-riyadh/p/1000060542",
+    "priceCheckedAt": "2026-10-06T07:25:45.698Z"
+  },
+  "saudi-opc": {
+    "price": 14.5,
+    "source": "https://www.masdaronline.com/en/sar/bg/cement-and-concrete-supplies/bagged-cement/cement-bags-portland-cement/ordinary-portland-cement-50kg-saudi/p/1000036513",
+    "priceCheckedAt": "2026-10-06T07:25:48.408Z"
+  },
+  "riyadh-white": {
+    "price": 28.8,
+    "source": "https://www.masdaronline.com/en/sar/bg/cement/cement-bags/white-cement/white-portland-cement-riyadh/p/1000060543",
+    "priceCheckedAt": "2026-10-06T07:25:49.895Z"
+  }
+}
