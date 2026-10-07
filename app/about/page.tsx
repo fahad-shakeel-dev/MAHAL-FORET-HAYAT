@@ -17,7 +17,7 @@ const facts = [
 ];
 
 export default function AboutPage() {
-  return <div className="homepage bg-white text-neutral-900">
+  return <div className="homepage page-rounded bg-white text-neutral-900">
     <section className="relative isolate overflow-hidden bg-surface-dark text-white">
       <Image src="/images/warehouse.jpg" alt="Illustrative construction material storage and logistics" fill preload sizes="100vw" className="object-cover opacity-40" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-dark via-surface-dark/80 to-surface-dark/30" />
@@ -34,10 +34,10 @@ export default function AboutPage() {
     <section id="partnership" className="home-container scroll-mt-28 py-16 sm:py-24"><Reveal>
       <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
         <div className="relative">
-          <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100"><Image src="/images/commercial.jpg" alt="Illustrative architecture in a modern built environment" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" /></div>
-          <div className="relative ml-6 -mt-12 border-l-2 border-brand-400 bg-neutral-900 p-6 text-white sm:ml-10 sm:p-8"><p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-300">Our foundation</p><p className="mt-3 text-2xl font-medium leading-tight sm:text-3xl">Built on experience.<br />Growing through trust.</p></div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-neutral-100"><Image src="/images/commercial.jpg" alt="Illustrative architecture in a modern built environment" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" /></div>
+          <div className="relative ml-6 -mt-12 rounded-3xl border-l-2 border-brand-400 bg-neutral-900 p-6 text-white sm:ml-10 sm:p-8"><p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-300">Our foundation</p><p className="mt-3 text-2xl font-medium leading-tight sm:text-3xl">Built on experience.<br />Growing through trust.</p></div>
         </div>
-        <div><p className="home-eyebrow">Who we are</p><h2 className="home-heading mt-4">A Saudi story.<br /><span className="text-brand-700">A lasting commitment.</span></h2><p className="mt-6 text-base leading-8 text-neutral-600">Since 2003, MAHAL FORET HAYAT has been part of Saudi Arabia�s construction materials sector. Our company is built around understanding our customers and developing dependable business relationships.</p><p className="mt-4 text-sm leading-8 text-neutral-500">Our Chairman, Mr. Bashir Hussain, brings approximately 40 years of professional experience in Saudi Arabia. His local market knowledge has helped shape our company�s direction.</p><div className="mt-7 flex items-start gap-4 border-t border-neutral-200 pt-6"><Users className="mt-1 h-6 w-6 shrink-0 text-brand-700" strokeWidth={1.5} /><div><h3 className="text-base font-semibold">One team. 30 people.</h3><p className="mt-2 text-sm leading-7 text-neutral-500">Our 30 employees work together to support our customers and manage the company�s day-to-day operations.</p></div></div></div>
+        <div><p className="home-eyebrow">Who we are</p><h2 className="home-heading mt-4">A Saudi story.<br /><span className="text-brand-700">A lasting commitment.</span></h2><p className="mt-6 text-base leading-8 text-neutral-600">Since 2003, MAHAL FORET HAYAT has been part of Saudi Arabia’s construction materials sector. Our company is built around understanding our customers and developing dependable business relationships.</p><p className="mt-4 text-sm leading-8 text-neutral-500">Our Chairman, Mr. Bashir Hussain, brings approximately 40 years of professional experience in Saudi Arabia. His local market knowledge has helped shape our company’s direction.</p><div className="mt-7 flex items-start gap-4 border-t border-neutral-200 pt-6"><Users className="mt-1 h-6 w-6 shrink-0 text-brand-700" strokeWidth={1.5} /><div><h3 className="text-base font-semibold">One team. 30 people.</h3><p className="mt-2 text-sm leading-7 text-neutral-500">Our 30 employees work together to support our customers and manage the company’s day-to-day operations.</p></div></div></div>
       </div>
     </Reveal></section>
 

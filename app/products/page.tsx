@@ -7,7 +7,7 @@ import { BuildingMaterials } from '@/components/BuildingMaterials';
 export const metadata: Metadata = { title: 'Product Catalog | MAHAL FORET HAYAT', description: 'Search construction materials, filter by application and request technical documents or a project quote.' };
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const params = await searchParams;
-  return <div className="homepage bg-white text-neutral-900">
+  return <div className="homepage page-rounded bg-white text-neutral-900">
     <section className="bg-surface-dark py-12 text-white sm:py-16"><div className="home-container"><nav aria-label="Breadcrumb" className="mb-7 flex gap-3 text-xs text-neutral-400"><Link href="/" className="hover:text-white">Home</Link><span>/</span><span aria-current="page">Products</span></nav><p className="home-eyebrow !text-brand-400">MAHAL FORET HAYAT / Construction material solutions</p><h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">Your project. The right materials.</h1><p className="mt-5 max-w-2xl text-sm leading-7 text-neutral-300">Explore construction material systems with MAHAL FORET HAYAT. Filter by application, review individual products and request the documents or project support you need.</p></div></section>
     <BuildingMaterials />
     <ProductCatalog key={params.q ?? ''} initialQuery={params.q ?? ''} />

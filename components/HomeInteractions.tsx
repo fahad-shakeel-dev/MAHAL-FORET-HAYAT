@@ -5,6 +5,8 @@ import { ArrowRight, FileCheck2, FileText, MessageCircle, Search, ShieldCheck } 
 import { useRouter } from 'next/navigation';
 import { ProductSearchResults } from './ProductSearchResults';
 import { solutions } from '@/lib/home-content';
+import { useLanguage } from './LanguageProvider';
+import { contactDetails } from '@/lib/contact-details';
 
 export function ProductLookup() {
   const router = useRouter();
@@ -34,6 +36,7 @@ export function ProductLookup() {
 
 
 export function QuoteForm({ detailed = false }: { detailed?: boolean }) {
+  const { language, translate } = useLanguage();
   const [status, setStatus] = useState('');
   const [pending, setPending] = useState(false);
   const [requirements, setRequirements] = useState('');
@@ -41,17 +44,17 @@ export function QuoteForm({ detailed = false }: { detailed?: boolean }) {
 
   useEffect(() => {
     const handleRequest = (event: Event) => {
-      const detail = (event as CustomEvent<string>).detail;
+      const detail = (event as CustomEvent<string>).detail.split('\n').map(translate).join('\n');
       setRequirements(previous => previous ? `${previous}\n${detail}` : detail);
     };
-    const handlePrefill = (event: Event) => setRequirements((event as CustomEvent<string>).detail);
+    const handlePrefill = (event: Event) => setRequirements((event as CustomEvent<string>).detail.split('\n').map(translate).join('\n'));
     window.addEventListener('quote-document-request', handleRequest);
     window.addEventListener('quote-prefill', handlePrefill);
     return () => {
       window.removeEventListener('quote-document-request', handleRequest);
       window.removeEventListener('quote-prefill', handlePrefill);
     };
-  }, []);
+  }, [translate]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -75,11 +78,11 @@ export function QuoteForm({ detailed = false }: { detailed?: boolean }) {
   function openWhatsApp() {
     if (!formRef.current?.reportValidity()) return;
     const details = new FormData(formRef.current);
-    const message = ['Hello, I would like to make an inquiry.', `Name: ${details.get('contact')}`, `Phone: ${details.get('phone')}`, ...(details.get('email') ? [`Email: ${details.get('email')}`] : []), '', String(details.get('requirements'))].join('\n');
-    window.open(`https://wa.me/923635518352?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    const message = [translate('Hello, I would like to make an inquiry.'), `${language === 'ar' ? 'الاسم' : 'Name'}: ${details.get('contact')}`, `${language === 'ar' ? 'الهاتف' : 'Phone'}: ${details.get('phone')}`, ...(details.get('email') ? [`${language === 'ar' ? 'البريد الإلكتروني' : 'Email'}: ${details.get('email')}`] : []), '', String(details.get('requirements'))].join('\n');
+    window.open(`${contactDetails.whatsappHref}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   }
 
-  return <form ref={formRef} onSubmit={submit} className="min-w-0 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm sm:p-8">
+  return <form ref={formRef} onSubmit={submit} className="home-form-card min-w-0 rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm sm:p-8">
     <h3 className="text-2xl font-semibold tracking-tight">Let’s talk.</h3>
     <p className="mb-7 mt-2 text-sm leading-6 text-neutral-500">Leave a message and we’ll help you get started.</p>
     <input type="hidden" name="source" value={detailed ? 'contact' : 'website'} />

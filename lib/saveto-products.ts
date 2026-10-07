@@ -1,5 +1,6 @@
 import references from './product-references.json';
 import type { ProductOverview } from './products';
+import { productName, arabicProductName } from './product-names';
 
 // Names and pack sizes are identified from the supplied retailer catalog.
 const names = [
@@ -11,7 +12,8 @@ const names = [
   'Saveto Porcelain Plus Large-Format Adhesive', 'Saveto Pool Grout — White', 'Saveto Concrete Repair Mortar', 'Saveto Wall Putty', 'Vetonit Ultra Multipurpose Tile Adhesive', 'Saveto Tile Grout — Gray',
 ];
 export const savetoProducts: ProductOverview[] = references.map((reference, index) => {
-  const name = names[index];
+  const originalName = names[index];
+  const name = productName(originalName);
   const cement = name.includes('Cement') && !name.includes('Cementitious');
   const grout = name.includes('Grout');
   const adhesive = /Adhesive|Premium Fix/.test(name);
@@ -23,9 +25,9 @@ export const savetoProducts: ProductOverview[] = references.map((reference, inde
   const pack = reference.name.match(/(\d+)\s*(كيلو|كغ|مل)/);
   const size = pack ? `${pack[1]} ${pack[2] === 'مل' ? 'ml' : 'kg'}` : 'Confirm pack size with your quote';
   const uses = cement ? ['Specified concrete and mortar in sulfate exposure conditions'] : grout ? [name.includes('Pool') ? 'Tile joints in specified pool systems' : 'Filling tile joints on walls and floors'] : adhesive ? [name.includes('Pool') ? 'Tile fixing in specified pool systems' : name.includes('Large-Format') ? 'Fixing large-format porcelain tiles' : 'Tile fixing on suitable prepared surfaces'] : bond ? ['Preparation and bonding for specified plaster systems'] : putty ? ['Wall surface preparation and finishing'] : repair ? ['Repairing concrete voids and surface defects'] : name.includes('Silicone') ? ['Sealing compatible joints and junctions'] : name.includes('Roof') ? ['Specified roof coating systems'] : ['Specified wet-area, floor and pool waterproofing systems'];
-  return { slug: cement ? 'saudi-sulfate-resistant-cement' : `saveto-${new URL(reference.url).pathname.split('/').pop()!.toLowerCase()}`, name, arabicName: reference.name.trim(), category, categoryId, image: reference.localImage ?? 'vetonit.png', representativeImage: !reference.localImage, source: reference.url, price: reference.price, originalPrice: reference.originalPrice, priceCheckedAt: reference.priceCheckedAt,
+  return { slug: cement ? 'saudi-sulfate-resistant-cement' : `saveto-${new URL(reference.url).pathname.split('/').pop()!.toLowerCase()}`, name, arabicName: arabicProductName(reference.name), searchAliases: [originalName, reference.name.trim()], category, categoryId, image: reference.localImage ?? 'vetonit.png', representativeImage: !reference.localImage, source: reference.url, price: reference.price, originalPrice: reference.originalPrice, priceCheckedAt: reference.priceCheckedAt,
     description: `${name} for ${uses[0].charAt(0).toLowerCase() + uses[0].slice(1)}.`, uses,
-    features: [cement ? 'Saudi Cement' : 'Saveto / Vetonit range', 'Product variant and availability confirmed on inquiry'],
+    features: ['Product variant and availability confirmed on inquiry'],
     facts: [['Size / packaging', size], ['Product reference', reference.sku ?? new URL(reference.url).pathname.split('/').pop()!], ['Selection', 'Confirm the current technical sheet and project specification']],
   };
 });

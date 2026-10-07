@@ -1,11 +1,47 @@
-import { ArrowRight, Check, Truck, PackageCheck, Forklift } from 'lucide-react';
+﻿import { ArrowUpRight, Truck, PackageCheck, Forklift } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Reveal } from './Reveal';
 
+const services = [
+  { icon: Truck, title: 'Material transport', text: 'Delivery of our materials or those you buy elsewhere.' },
+  { icon: PackageCheck, title: 'Loading', text: 'Support from collection to departure.' },
+  { icon: Forklift, title: 'Unloading', text: 'Careful handling at your project site.' },
+];
+
 export function TransportServices() {
-  return <section id="logistics" className="overflow-hidden bg-surface-dark py-16 text-white sm:py-20"><div className="home-container"><Reveal className="grid items-center gap-10 lg:grid-cols-2">
-    <div><p className="home-eyebrow !text-brand-400">Transport, loading & unloading</p><h2 className="home-heading mt-3">Your materials.<br />Our trucks. Your site.</h2><p className="mt-5 max-w-lg text-sm leading-7 text-neutral-300">Our trucks transport the materials you buy from us, and materials you source elsewhere. We also provide loading and unloading services to help move your order from pickup to site.</p><ul className="mt-6 space-y-3">{['Delivery of our construction materials', 'Transport of materials purchased from other suppliers', 'Loading and unloading at pickup and delivery'].map(text => <li key={text} className="flex items-start gap-3 text-sm leading-6 text-neutral-300"><Check className="mt-1 h-4 w-4 shrink-0 text-brand-400" />{text}</li>)}</ul><Link href="/contact?service=transport#quote" className="home-button mt-7 inline-flex bg-brand-700 text-white hover:bg-brand-800">Enquire about transport<ArrowRight className="h-4 w-4" /></Link></div>
-    <figure className="min-w-0"><div className="relative aspect-[16/10] overflow-hidden border border-white/15 bg-neutral-100"><Image src="/images/transport-truck.webp" alt="Real white Mercedes-Benz Actros heavy-duty construction truck" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-contain" /></div><figcaption className="mt-3 text-[10px] leading-5 text-neutral-400">Representative transport truck / Photo: Cjp24 / CC BY-SA 4.0</figcaption></figure>
-  </Reveal><div className="mt-10 grid gap-px border border-white/15 bg-white/15 sm:grid-cols-3">{[{ icon: Truck, title: 'Material transport', text: 'Pickup and delivery for your construction requirements.' }, { icon: PackageCheck, title: 'Loading support', text: 'Arrange collection and loading of your materials.' }, { icon: Forklift, title: 'Unloading support', text: 'Coordinate site access and unloading before arrival.' }].map(item => <div key={item.title} className="bg-surface-dark p-6"><item.icon className="h-6 w-6 text-brand-400" /><h3 className="mt-4 text-base font-semibold">{item.title}</h3><p className="mt-2 text-sm leading-6 text-neutral-400">{item.text}</p></div>)}</div></div></section>;
+  return (
+    <section id="logistics" aria-labelledby="home-transport-title" className="home-section overflow-hidden bg-[#faf9f6]">
+      <div className="home-container">
+        <Reveal>
+          <div className="grid gap-6 md:grid-cols-2 md:items-end md:gap-12">
+            <div className="min-w-0">
+              <p className="home-eyebrow">Transport, loading &amp; unloading</p>
+              <h2 id="home-transport-title" className="home-heading mt-4 text-neutral-900">Your materials.<br /><span className="text-brand-700">Our trucks. Your site.</span></h2>
+            </div>
+            <div className="min-w-0">
+              <p className="home-body max-w-lg text-neutral-600">From pickup to your site, we help move your materials with transport, loading and unloading support.</p>
+              <Link href="/contact?service=transport#quote" className="mt-5 inline-flex min-h-11 items-center gap-5 border-b border-brand-300 text-sm font-medium text-brand-700 transition-colors hover:text-brand-900">Enquire about transport<ArrowUpRight size={18} /></Link>
+            </div>
+          </div>
+          <div className="mt-8 grid items-center gap-8 sm:mt-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+            <ul aria-label="Transport services" className="min-w-0 divide-y divide-neutral-200">
+              {services.map(service => (
+                <li key={service.title} className="flex items-start gap-4 py-6 first:pt-0 last:pb-0 sm:gap-5">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand-200 bg-white text-brand-700"><service.icon size={22} strokeWidth={1.5} /></span>
+                  <div className="min-w-0"><h3 className="text-lg font-normal tracking-tight text-neutral-900">{service.title}</h3><p className="mt-2 text-sm leading-6 text-neutral-500">{service.text}</p></div>
+                </li>
+              ))}
+            </ul>
+            <figure className="min-w-0">
+              <div className="relative aspect-[7/3] overflow-hidden rounded-[1.75rem] bg-neutral-100 shadow-[0_12px_36px_rgba(83,59,29,0.06)] sm:rounded-[2rem]">
+                <Image src="/images/transport-truck.webp" alt="White Mercedes-Benz Actros truck carrying construction materials" fill sizes="(max-width: 1023px) 100vw, 55vw" className="object-contain" />
+              </div>
+              <figcaption className="mt-3 text-[10px] leading-5 text-neutral-500">Representative transport truck · Photo: Cjp24 · CC BY-SA 4.0</figcaption>
+            </figure>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
 }

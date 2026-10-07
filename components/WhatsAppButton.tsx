@@ -1,17 +1,14 @@
+import { contactDetails } from '@/lib/contact-details';
+
 export function WhatsAppButton() {
-  // Set WHATSAPP_NUMBER to the business number, including its country code.
-  const number = (process.env.WHATSAPP_NUMBER || "+923635518352").replace(/\D/g, "");
-  const href = number
-    ? `https://wa.me/${number}`
-    : "/contact#quote";
 
   return (
     <a
-      href={href}
-      target={number ? "_blank" : undefined}
-      rel={number ? "noopener noreferrer" : undefined}
-      aria-label={number ? "Chat with us on WhatsApp (opens in a new tab)" : "Contact us — WhatsApp number coming soon"}
-      title={number ? "Chat with us on WhatsApp" : "Contact us — WhatsApp number coming soon"}
+      href={contactDetails.whatsappHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp (opens in a new tab)"
+      title="Chat with us on WhatsApp"
       className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition-colors hover:bg-[#1ebe5d] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#128C7E] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom))] sm:right-[calc(1.5rem+env(safe-area-inset-right))] sm:h-16 sm:w-16"
     >
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">

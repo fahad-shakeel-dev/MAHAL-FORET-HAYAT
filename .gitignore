@@ -13,6 +13,11 @@
 # testing
 /coverage
 /.preview/
+/scripts/.openl-*
+/scripts/.translation*
+/scripts/.missing-ar.json
+/scripts/.manual-ar.tsv
+/scripts/.complete-ar.cjs
 
 # next.js
 /.next/
@@ -33,6 +38,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel

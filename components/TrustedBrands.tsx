@@ -1,11 +1,78 @@
+﻿'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { Check, ArrowRight } from 'lucide-react';
-import { Reveal } from './Reveal';
+import { useEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import styles from './TrustedBrands.module.css';
+
+const brands = [
+  { name: 'Riyadh Cement', image: '/images/brands/riyadh-cement.png', href: '/products#cement' },
+  { name: 'Saudi Cement', image: '/images/brands/saudi-cement.png', href: '/products#cement' },
+  { name: 'Eastern', image: '/images/brands/eastern-cement.png', href: '/products#cement' },
+  { name: 'Saveto', image: '/images/saveto.png', href: '/brands#saveto' },
+  { name: 'Vetonit', image: '/images/vetonit.png', href: '/brands#vetonit' },
+  { name: 'Insuwrap', image: '/images/insuwrap.png', href: '/brands#insuwrap' },
+];
 
 export function TrustedBrands() {
-  return <section id="brands" className="border-y border-neutral-200 bg-neutral-50 py-16 sm:py-20"><div className="home-container"><Reveal>
-    <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="home-eyebrow">Our trusted brands</p><h2 className="home-heading mt-3">Names you know.<br />Materials you can build with.</h2><ul className="mt-6 space-y-3">{['Cement from Riyadh Cement, Saudi Cement and Eastern', 'Finishing and specialist construction materials', 'Brand, grade and availability confirmed for your order'].map(text => <li key={text} className="flex items-start gap-3 text-sm leading-6 text-neutral-600"><Check className="mt-1 h-4 w-4 shrink-0 text-brand-700" />{text}</li>)}</ul><Link href="/brands" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-700">Explore our brands<ArrowRight className="h-4 w-4" /></Link></div>
-    <div className="grid min-w-0 grid-cols-2 gap-3 sm:grid-cols-3">{['Riyadh Cement', 'Saudi Cement', 'Eastern'].map((name, index) => <Link key={name} href="/products#cement" className="brand-tile flex min-h-32 flex-col justify-center border border-neutral-200 bg-white p-5" style={{ transitionDelay: `${index * 70}ms` }}><span className="text-[10px] font-medium uppercase tracking-widest text-brand-700">Cement</span><span className="mt-3 text-lg font-semibold leading-6 tracking-tight">{name}</span></Link>)}{[{ name: 'Saveto', image: 'saveto.png' }, { name: 'Vetonit', image: 'vetonit.png' }, { name: 'Insuwrap', image: 'insuwrap.png' }].map((brand, index) => <Link key={brand.name} href="/brands" aria-label={`Explore ${brand.name}`} className="brand-tile flex min-h-32 items-center justify-center border border-neutral-200 bg-white p-5" style={{ transitionDelay: `${(index + 3) * 70}ms` }}><div className={`relative h-16 w-full ${brand.name === 'Saveto' ? 'bg-surface-dark' : ''}`}><Image src={`/images/${brand.image}`} alt={brand.name} fill sizes="180px" className="object-contain p-2" /></div></Link>)}</div></div>
-  </Reveal></div></section>;
+  const section = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const element = section.current;
+    if (!element) return;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motion.matches || !('IntersectionObserver' in window)) return;
+    element.dataset.animation = 'pending';
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && entry.intersectionRatio >= .2) {
+        element.dataset.animation = 'visible';
+        observer.disconnect();
+      }
+    }, { threshold: .2 });
+    observer.observe(element);
+    const reduceMotion = () => {
+      if (motion.matches) {
+        element.dataset.animation = 'visible';
+        observer.disconnect();
+      }
+    };
+    motion.addEventListener('change', reduceMotion);
+    return () => {
+      observer.disconnect();
+      motion.removeEventListener('change', reduceMotion);
+    };
+  }, []);
+
+  return (
+    <section ref={section} id="brands" aria-labelledby="home-brands-title" className={styles.section}>
+      <div className="home-container">
+        <div className={styles.layout}>
+          <div className={styles.intro}>
+            <p className="home-eyebrow">Behind every build</p>
+            <h2 id="home-brands-title" className={styles.heading}>Brands<span>.</span></h2>
+            <p className={styles.description}>Familiar names. Dependable materials.</p>
+            <Link href="/brands" className={styles.more}>Explore brands<ArrowUpRight size={18} /></Link>
+          </div>
+          <ul className={styles.list} aria-label="Our material brands">
+            {brands.map((brand, index) => (
+              <li key={brand.name} className={styles.row} style={{ '--brand-delay': `${index * 1000}ms` } as CSSProperties}>
+                <Link href={brand.href} className={styles.brand}>
+                  <span className={styles.logo} aria-hidden="true">
+                    <svg className={styles.ring} viewBox="0 0 88 88" fill="none"><circle cx="44" cy="44" r="42" pathLength="1" /></svg>
+                    <span className={`${styles.logoSurface} ${brand.name === 'Saveto' || brand.name === 'Riyadh Cement' ? styles.darkLogo : ''}`}>
+                      <Image src={brand.image} alt="" fill sizes="88px" loading="eager" className={styles.logoImage} />
+                    </span>
+                  </span>
+                  <span className={styles.name}>{brand.name}</span>
+                  <ArrowUpRight className={styles.arrow} size={19} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
 }

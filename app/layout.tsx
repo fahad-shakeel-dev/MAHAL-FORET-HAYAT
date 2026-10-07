@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ConstructionIntro } from "@/components/ConstructionIntro";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,12 +33,12 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body id="site-top" className="min-h-full flex flex-col bg-surface">
-        <ConstructionIntro>
+        <LanguageProvider><ConstructionIntro>
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
           <WhatsAppButton />
-        </ConstructionIntro>
+        </ConstructionIntro></LanguageProvider>
       </body>
     </html>
   );

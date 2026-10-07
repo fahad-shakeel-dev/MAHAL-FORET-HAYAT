@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   overflow: hidden;
+  border-radius: 2rem;
   border: 1px solid #ffffff26;
   background: #ffffff08;
 }
@@ -13,8 +14,8 @@
 .name { margin-top: 12px; font-size: 26px; font-weight: 600; line-height: 1.25; letter-spacing: -0.03em; }
 .detail { margin-top: 20px; color: #a3a3a3; font-size: 14px; line-height: 1.9; }
 .company { margin-top: 24px; padding-top: 20px; border-top: 1px solid #ffffff1a; color: #d9bc7e; font-size: 10px; letter-spacing: 0.1em; }
-.director { display: flex; align-items: center; gap: 20px; padding: 24px; border: 1px solid #ffffff26; background: #ffffff08; }
-.initials { display: flex; flex: 0 0 56px; height: 56px; align-items: center; justify-content: center; border: 1px solid #d9bc7e4d; color: #d9bc7e; font-size: 22px; }
+.director { display: flex; align-items: center; gap: 20px; padding: 24px; border: 1px solid #ffffff26; border-radius: 1.5rem; background: #ffffff08; }
+.initials { display: flex; flex: 0 0 56px; height: 56px; align-items: center; justify-content: center; border: 1px solid #d9bc7e4d; border-radius: 1rem; color: #d9bc7e; font-size: 22px; }
 .director h3 { margin-top: 8px; font-size: 18px; font-weight: 600; }
 .director p:last-child { margin-top: 6px; color: #a3a3a3; font-size: 12px; line-height: 1.8; }
 @media (max-width: 639px) {

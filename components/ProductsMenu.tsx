@@ -26,7 +26,7 @@ const menuGroups = [
     { title: 'Large rock & stone', items: select(p => ['rock-4-inch', 'stone-1-to-6-inch'].includes(p.slug)) },
     { title: 'Black filling', items: select(p => p.slug === 'black-filling') },
   ] },
-  { title: 'Saveto / Vetonit', description: 'Adhesives, grouts & finishes', icon: Layers3, groups: [
+  { title: 'Finishing Materials', description: 'Adhesives, grouts & finishes', icon: Layers3, groups: [
     { title: 'Tile adhesives', items: saveto(p => /Adhesive|Premium Fix/.test(p.name)) },
     { title: 'Tile grout colors', items: saveto(p => p.name.includes('Tile Grout')) },
     { title: 'Antibacterial grouts', items: saveto(p => p.name.includes('Antibacterial')) },
@@ -47,6 +47,7 @@ export function ProductsMenu({ mobile = false, onNavigate }: { mobile?: boolean;
   const [subgroup, setSubgroup] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const linkRef = useRef<HTMLAnchorElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const [availableHeight, setAvailableHeight] = useState(390);
@@ -92,12 +93,17 @@ export function ProductsMenu({ mobile = false, onNavigate }: { mobile?: boolean;
   return <div ref={rootRef} className={mobile ? 'relative' : 'static'} onMouseEnter={() => { if (!mobile) open(); }} onMouseLeave={() => {
     if (!mobile && !rootRef.current?.contains(document.activeElement)) { cancelClose(); timeoutRef.current = setTimeout(close, 220); }
   }} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) close(); }} onKeyDown={event => {
-    if (event.key === 'Escape' && isOpen) { event.preventDefault(); event.stopPropagation(); close(); triggerRef.current?.focus(); }
-    if (event.key === 'ArrowDown' && event.target === triggerRef.current) { event.preventDefault(); open(); requestAnimationFrame(() => document.getElementById(id)?.querySelector<HTMLButtonElement>('button')?.focus()); }
+    if (event.key === 'Escape' && isOpen) { event.preventDefault(); event.stopPropagation(); close(); (mobile ? triggerRef.current : linkRef.current)?.focus(); }
+    if (event.key === 'ArrowDown' && (event.target === triggerRef.current || event.target === linkRef.current)) { event.preventDefault(); open(); requestAnimationFrame(() => document.getElementById(id)?.querySelector<HTMLButtonElement>('button')?.focus()); }
   }}>
-    <button ref={triggerRef} type="button" aria-expanded={isOpen} aria-controls={id} onClick={() => { if (isOpen) close(); else open(); }} className={`${mobile ? 'w-full justify-between' : ''} flex items-center gap-1.5 py-2 text-sm font-medium text-neutral-700 transition-colors hover:text-brand-700 ${focusStyle}`}>
-      Products<ChevronDown aria-hidden="true" className={`h-4 w-4 text-neutral-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-    </button>
+    <div className={mobile ? 'flex w-full items-center justify-between' : undefined}>
+      <Link ref={linkRef} href="/products" onClick={navigate} aria-expanded={mobile ? undefined : isOpen} aria-controls={mobile ? undefined : id} className={`${mobile ? 'flex-1' : ''} flex items-center gap-1.5 py-2 text-sm font-medium text-neutral-700 transition-colors hover:text-brand-700 ${focusStyle}`}>
+        Products{!mobile && <ChevronDown aria-hidden="true" className={`h-4 w-4 text-neutral-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />}
+      </Link>
+      {mobile && <button ref={triggerRef} type="button" aria-label="Toggle products menu" aria-expanded={isOpen} aria-controls={id} onClick={() => { if (isOpen) close(); else open(); }} className={`flex min-h-11 min-w-11 items-center justify-center rounded-lg text-neutral-500 hover:bg-brand-50 ${focusStyle}`}>
+        <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>}
+    </div>
     {isOpen && <div id={id} aria-label="Our products" className={mobile ? styles.mobileWrapper : styles.desktopWrapper}>
       <div ref={panelRef} className={mobile ? styles.mobilePanel : styles.panel} style={{ maxHeight: availableHeight, height: mobile ? undefined : Math.min(390, availableHeight) }}>
         <div className={styles.header}>

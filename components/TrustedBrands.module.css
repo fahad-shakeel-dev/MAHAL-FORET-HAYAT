@@ -1,0 +1,53 @@
+﻿.section { padding-block: var(--home-section-space); border-block: 1px solid var(--neutral-200); background: linear-gradient(120deg, var(--brand-50), #fff 65%); }
+.layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: start; }
+.intro { padding-top: 0; }
+.heading { margin-top: 1rem; font-size: var(--home-heading-size); font-weight: var(--home-heading-weight); line-height: var(--home-heading-leading); letter-spacing: var(--home-heading-tracking); color: var(--neutral-900); }
+.heading > span { color: var(--brand-500); }
+.description { margin-top: 1.5rem; font-size: var(--home-body-size); line-height: var(--home-body-leading); color: var(--neutral-600); }
+.more { display: inline-flex; align-items: center; gap: 1.75rem; min-height: 2.75rem; margin-top: 1.75rem; border-bottom: 1px solid var(--brand-300); color: var(--brand-700); font-size: .8125rem; font-weight: 500; }
+.more svg { transition: transform 200ms; }
+.more:hover svg { transform: translate(2px, -2px); }
+.list { --logo-size: 88px; --row-gap: 12px; position: relative; display: grid; gap: var(--row-gap); }
+.row { position: relative; min-width: 0; }
+.row:not(:last-child)::after { content: ''; position: absolute; left: calc(var(--logo-size) / 2 - 1px); top: calc(50% + var(--logo-size) / 2); width: 2px; height: calc(100% - var(--logo-size) + var(--row-gap)); background: var(--brand-300); transform-origin: top; }
+.brand { position: relative; display: flex; align-items: center; gap: 1.75rem; min-height: calc(var(--logo-size) + 16px); padding-block: .5rem; border-radius: 1rem; }
+.logo { position: relative; display: grid; place-items: center; flex: 0 0 var(--logo-size); height: var(--logo-size); }
+.ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.ring circle { stroke: var(--brand-400); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.logoSurface { position: absolute; inset: 5px; overflow: hidden; border-radius: 50%; background: #fff; box-shadow: 0 5px 20px rgb(83 59 29 / 6%); }
+.darkLogo { background: var(--neutral-900); }
+.logoImage { object-fit: contain; padding: 9px; }
+.name { flex: 1; min-width: 0; font-size: 1.125rem; font-weight: 400; line-height: 1.3; letter-spacing: -.03em; color: var(--neutral-800); }
+.arrow { flex-shrink: 0; margin-right: .5rem; color: var(--brand-600); }
+.brand:hover .ring circle { stroke: var(--brand-700); }
+.brand:hover .name { color: var(--brand-700); }
+.section[data-animation='pending'] .ring circle { stroke-dashoffset: 1; }
+.section[data-animation='pending'] .logoSurface,
+.section[data-animation='pending'] .name,
+.section[data-animation='pending'] .arrow { opacity: 0; }
+.section[data-animation='pending'] .row::after { transform: scaleY(0); }
+.section[data-animation='visible'] .ring circle { animation: drawRing 450ms ease var(--brand-delay) both; }
+.section[data-animation='visible'] .logoSurface { animation: logoIn 300ms cubic-bezier(.22, 1, .36, 1) calc(var(--brand-delay) + 450ms) both; }
+.section[data-animation='visible'] .name,
+.section[data-animation='visible'] .arrow { animation: nameIn 350ms cubic-bezier(.22, 1, .36, 1) calc(var(--brand-delay) + 600ms) both; }
+.section[data-animation='visible'] .row::after { animation: connect 250ms ease calc(var(--brand-delay) + 750ms) both; }
+@keyframes drawRing { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes logoIn { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+@keyframes nameIn { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes connect { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@media (max-width: 767px) {
+  .section { padding-block: var(--home-section-space); }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .intro { padding-top: 0; }
+  .heading { font-size: var(--home-heading-size); }
+  .description { margin-top: 1rem; }
+  .more { margin-top: 1rem; }
+  .list { --logo-size: 76px; --row-gap: 10px; }
+  .brand { gap: 1.25rem; }
+  .logoImage { padding: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section .ring circle { stroke-dashoffset: 0 !important; animation: none !important; }
+  .section .logoSurface, .section .name, .section .arrow, .section .row::after { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .more svg { transition: none; }
+}

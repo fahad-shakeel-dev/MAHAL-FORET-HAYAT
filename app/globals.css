@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Arabic follows the same theme with natural Arabic letter spacing. */
+html[dir='rtl'] :is(body, .homepage, .font-sans) { font-family: Tahoma, Arial, sans-serif; }
+html[dir='rtl'] .home-root { --home-label-size: .75rem; --home-heading-leading: 1.4; }
+html[dir='rtl'] :is(h1, h2, h3, h4, p, a, button, label, span) { letter-spacing: normal; }
+html[dir='rtl'] :is(input[type='email'], input[type='tel'], input[type='number']) { direction: ltr; text-align: right; }
+html[dir='rtl'] .mobile-navigation-drawer { left: auto; right: 0; transform: translateX(100%); }
+html[dir='rtl'] .mobile-navigation-drawer[open] { transform: translateX(0); }
+
 .section-reveal { transition: opacity 650ms ease, transform 650ms ease; }
 .section-reveal[data-reveal="pending"] { opacity: 0; transform: translateY(18px); }
 .section-reveal[data-reveal="visible"] { opacity: 1; transform: translateY(0); }
@@ -122,6 +130,43 @@ body {
 .homepage {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+/* Inner pages use the homepage's rounded surfaces without altering their layouts. */
+.page-rounded .home-button,
+.page-rounded .home-input { border-radius: .875rem; }
+.page-rounded .home-form-card { border-radius: 2rem; }
+
+.home-root {
+  --home-heading-size: clamp(2rem, 3.5vw, 3rem);
+  --home-subheading-size: clamp(1.5rem, 2.4vw, 2rem);
+  --home-heading-weight: 400;
+  --home-heading-leading: 1.15;
+  --home-heading-tracking: -0.04em;
+  --home-body-size: 0.9375rem;
+  --home-body-leading: 1.8;
+  --home-label-size: 0.6875rem;
+  --home-section-space: clamp(3.5rem, 6vw, 5rem);
+  --home-gutter: 1.25rem;
+}
+.home-root .home-heading {
+  font-size: var(--home-heading-size);
+  font-weight: var(--home-heading-weight);
+  line-height: var(--home-heading-leading);
+  letter-spacing: var(--home-heading-tracking);
+  text-wrap: balance;
+}
+.home-root .home-subheading {
+  font-size: var(--home-subheading-size);
+  font-weight: var(--home-heading-weight);
+  line-height: 1.25;
+  letter-spacing: var(--home-heading-tracking);
+}
+.home-root .home-eyebrow { font-size: var(--home-label-size); font-weight: 500; letter-spacing: 0.16em; }
+.home-root .home-body { font-size: var(--home-body-size); font-weight: 400; line-height: var(--home-body-leading); }
+.home-root .home-section { padding-block: var(--home-section-space); }
+.home-root .home-button { font-weight: 500; }
+@media (min-width: 640px) { .home-root { --home-gutter: 1.5rem; } }
+@media (min-width: 1024px) { .home-root { --home-gutter: 2rem; } }
 
 .home-container {
   width: 100%;

@@ -1,9 +1,10 @@
 import type { ProductOverview } from './products';
 import cementReferences from './cement-references.json';
 import materialPhotos from './material-photo-references.json';
+import { productName, arabicProductName } from './product-names';
 
 const material = (slug: string, name: string, arabicName: string, categoryId: string, size: string, description: string, uses: string[]): ProductOverview => ({
-  slug, name, arabicName, categoryId, category: categoryId === 'cement' ? 'Cement' : categoryId === 'sand' ? 'Construction Sand' : 'Stone & Aggregates',
+  slug, name: productName(name), arabicName: arabicProductName(arabicName), searchAliases: [name, arabicName], categoryId, category: categoryId === 'cement' ? 'Cement' : categoryId === 'sand' ? 'Construction Sand' : 'Stone & Aggregates',
   image: categoryId === 'cement' ? `products/${slug === 'riyadh-opc-cement' ? 'riyadh-opc' : slug === 'saudi-opc-cement' ? 'saudi-opc' : 'riyadh-white'}.jpg` : materialPhotos[slug as keyof typeof materialPhotos].image,
   representativeImage: categoryId !== 'cement', description, uses, features: ['Delivery planning for Dammam & Khobar', 'Project specification confirmed with your quote'],
   facts: [['Size / grading', size], ['Supply unit', categoryId === 'cement' ? '50 kg bag' : 'Cubic meter / truckload'], ['Quality check', 'Confirm grading, source and project requirements before supply']],

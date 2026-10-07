@@ -2,12 +2,14 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Search, Menu, Globe, Phone, X, ArrowRight } from 'lucide-react';
+import { Search, Menu, Phone, X } from 'lucide-react';
 import Link from 'next/link';
 import { ProductSearchResults } from './ProductSearchResults';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { ProductsMenu } from './ProductsMenu';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { contactDetails } from '@/lib/contact-details';
 
 // Navigation links configuration
 const navigationLinks = [
@@ -27,17 +29,39 @@ export function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isTransparent = !isScrolled;
   const mobileDialogRef = useRef<HTMLDialogElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const searchButtonRef = useRef<HTMLButtonElement>(null);
+
+  function closeSearch(restoreFocus = false) {
+    setIsSearchOpen(false);
+    setSearchQuery('');
+    if (restoreFocus) searchButtonRef.current?.focus();
+  }
+
+  function submitSearch() {
+    if (!searchQuery.trim()) {
+      searchInputRef.current?.focus();
+      return;
+    }
+    router.push(`/products?q=${encodeURIComponent(searchQuery.trim())}#catalog`);
+    closeSearch();
+  }
 
   // Handle sticky navbar elevation on scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    const initialFrame = window.requestAnimationFrame(handleScroll);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.cancelAnimationFrame(initialFrame);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [pathname]);
 
   // Keyboard shortcut support (Cmd/Ctrl + K to open search)
   useEffect(() => {
@@ -48,12 +72,22 @@ export function Navbar() {
         setSearchQuery('');
       }
       if (e.key === 'Escape' && isSearchOpen) {
-        setIsSearchOpen(false);
-        setSearchQuery('');
+        closeSearch(true);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isSearchOpen]);
+
+  useEffect(() => {
+    if (!isSearchOpen) return;
+    const handleOutsideClick = (event: PointerEvent) => {
+      if (event.target instanceof Node && !searchContainerRef.current?.contains(event.target)) {
+        closeSearch();
+      }
+    };
+    document.addEventListener('pointerdown', handleOutsideClick);
+    return () => document.removeEventListener('pointerdown', handleOutsideClick);
   }, [isSearchOpen]);
 
   // Focus management for search input
@@ -96,7 +130,7 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-6">
             <a 
-              href="/contact#quote" 
+              href={contactDetails.phoneHref}
               className="flex items-center gap-2 hover:text-white transition-colors group"
             >
               <div className="p-1 rounded-full bg-neutral-800 group-hover:bg-brand-800 transition-colors">
@@ -114,7 +148,7 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center space-x-4">
-            <span className="flex items-center gap-2 text-xs text-neutral-300"><Globe className="h-3.5 w-3.5 text-brand-400" />English</span>
+            <LanguageSwitcher />
           </div>
         </div>
       </div>
@@ -122,13 +156,13 @@ export function Navbar() {
       {/* Main Glassmorphic Navigation Bar */}
       <nav 
         aria-label="Main navigation" 
-        className={`w-full font-sans sticky top-0 z-50 transition-all duration-300 border-b ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-md border-neutral-200 py-1.5' 
-            : 'bg-white border-neutral-100 py-2.5'
+        className={`w-full shrink-0 font-sans sticky top-0 z-50 py-1.5 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 motion-reduce:transition-none border-b ${
+          isTransparent
+            ? 'bg-transparent border-transparent'
+            : 'bg-white/95 backdrop-blur-md shadow-md border-neutral-200'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14 md:h-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14 md:h-[60px]">
           
           {/* Brand Logo */}
           <Link 
@@ -144,7 +178,7 @@ export function Navbar() {
               width={220}
               height={72}
               priority
-              className="h-12 w-auto max-w-[190px] object-contain sm:max-w-[240px] md:h-14 lg:max-w-[250px]"
+              className="h-12 w-auto max-w-[190px] object-contain sm:max-w-[240px] lg:max-w-[250px]"
             />
           </Link>
 
@@ -180,24 +214,27 @@ export function Navbar() {
           )}
 
           {/* Right Action Controls (Search & Mobile Toggle) */}
-          <div className="flex min-w-0 items-center gap-2 sm:gap-3 justify-end flex-grow lg:flex-grow-0">
+          <div className={`flex min-w-0 items-center gap-2 sm:gap-3 justify-end ${isSearchOpen ? 'flex-1 md:ml-6 md:max-w-xl' : 'flex-grow lg:flex-grow-0'}`}>
             
             {/* Search Component Bar */}
-            <div className={`relative flex items-center justify-end transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+            <div ref={searchContainerRef} className={`relative min-w-0 flex items-center justify-end transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
               isSearchOpen ? 'w-full max-w-xl' : 'w-auto'
             }`}>
               <div className={`relative flex items-center overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group ${
                 isSearchOpen 
-                  ? 'w-full bg-white rounded-none border border-brand-200 shadow-(--brand-shadow) px-4 py-2 ring-4 ring-brand-500/10' 
-                  : 'w-auto bg-neutral-50 hover:bg-brand-50/60 rounded-none border border-neutral-200 hover:border-brand-200 p-1.5 md:px-3.5 md:py-1.5 cursor-pointer'
+                  ? 'w-full bg-white rounded-lg border border-brand-200 shadow-(--brand-shadow) px-4 py-2 ring-4 ring-brand-500/10'
+                  : 'w-auto bg-neutral-50 hover:bg-brand-50/60 rounded-lg border border-neutral-200 hover:border-brand-200 p-1.5 md:px-3.5 md:py-1.5 cursor-pointer'
               }`}
                 onClick={() => !isSearchOpen && setIsSearchOpen(true)}
               >
                 {/* Search Icon */}
                 <button 
+                  ref={searchButtonRef}
                   type="button"
                   aria-label="Search"
-                  onClick={() => setIsSearchOpen(true)}
+                  aria-expanded={isSearchOpen}
+                  aria-controls="navbar-search-results"
+                  onClick={() => isSearchOpen ? submitSearch() : setIsSearchOpen(true)}
                   className={`flex items-center justify-center shrink-0 transition-colors ${
                     isSearchOpen ? 'text-brand-700 cursor-default' : 'text-neutral-500 group-hover:text-brand-700'
                   }`}
@@ -213,9 +250,9 @@ export function Navbar() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   aria-label="Search the product catalog"
-                  onKeyDown={(event) => { if (event.key === 'Enter' && searchQuery.trim()) { router.push(`/products?q=${encodeURIComponent(searchQuery.trim())}`); setIsSearchOpen(false); setSearchQuery(''); } }}
+                  onKeyDown={(event) => { if (event.key === 'Enter' && !event.nativeEvent.isComposing) { event.preventDefault(); submitSearch(); } }}
                   placeholder="Search products or material systems..." 
-                  className={`bg-transparent text-[15px] text-neutral-800 placeholder-neutral-400 outline-none border-none transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+                  className={`min-w-0 [&::-webkit-search-cancel-button]:appearance-none bg-transparent text-[15px] text-neutral-800 placeholder-neutral-400 outline-none border-none transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
                     isSearchOpen ? 'w-full opacity-100 px-1' : 'w-0 opacity-0 px-0'
                   }`}
                   onClick={(e) => e.stopPropagation()}
@@ -232,12 +269,11 @@ export function Navbar() {
                 )}
 
                 {/* Clear / Close Buttons when open */}
-                <div className={`flex items-center overflow-hidden transition-all duration-300 ${
-                  isSearchOpen ? 'w-auto opacity-100 ml-2' : 'w-0 opacity-0'
-                }`}>
+                {isSearchOpen && <div className="flex shrink-0 items-center ml-2">
                   {searchQuery && (
                     <button 
                       type="button" 
+                      aria-label="Clear search"
                       onClick={(e) => { e.stopPropagation(); setSearchQuery(''); searchInputRef.current?.focus(); }}
                       className="p-1 text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 rounded-full transition-colors shrink-0"
                     >
@@ -248,14 +284,14 @@ export function Navbar() {
                   <button 
                     type="button" 
                     aria-label="Close search"
-                    onClick={(e) => { e.stopPropagation(); setIsSearchOpen(false); setSearchQuery(''); }}
-                    className="p-1 text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 rounded-full transition-colors shrink-0"
+                    onClick={(e) => { e.stopPropagation(); closeSearch(true); }}
+                    className="flex h-9 w-9 items-center justify-center text-neutral-500 hover:text-neutral-800 hover:bg-neutral-100 rounded-lg transition-colors shrink-0"
                   >
-                    <ArrowRight className="w-4 h-4" />
+                    <X className="w-4 h-4" />
                   </button>
-                </div>
+                </div>}
               </div>
-              {isSearchOpen && <div className="absolute left-0 right-0 top-full z-50"><ProductSearchResults query={searchQuery} onNavigate={() => { setIsSearchOpen(false); setSearchQuery(''); }} /></div>}
+              {isSearchOpen && <div id="navbar-search-results" className="absolute left-0 right-0 top-full z-50"><ProductSearchResults query={searchQuery} onNavigate={() => closeSearch()} /></div>}
             </div>
 
             {/* Mobile Navigation Toggle */}

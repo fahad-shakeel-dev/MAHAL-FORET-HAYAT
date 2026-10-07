@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "translate:ar": "node scripts/translate-ar.mjs",
+    "translate:check": "node scripts/translate-ar.mjs --dry-run"
   },
   "dependencies": {
     "lucide-react": "^1.49.0",

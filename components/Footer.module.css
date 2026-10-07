@@ -1,0 +1,21 @@
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+}
+
+.brand,
+.quickContact { grid-column: 1 / -1; min-width: 0; }
+
+.quickContact { border-top: 1px solid rgb(255 255 255 / 10%); padding-top: 1.5rem; }
+
+@media (min-width: 1024px) {
+  .columns {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, .7fr) minmax(0, .8fr) minmax(0, 1.2fr);
+    column-gap: 2rem;
+    align-items: start;
+  }
+  .brand,
+  .quickContact { grid-column: auto; }
+  .quickContact { border-top: 0; padding-top: 0; }
+}
