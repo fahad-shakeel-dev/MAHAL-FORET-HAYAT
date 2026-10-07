@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import Image from 'next/image';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import styles from './HomeHero.module.css';
@@ -11,10 +11,13 @@ const slides = [
   { image: '/images/infrastructure.jpg', alt: 'Blue industrial equipment in a bright, clean facility', label: 'Materials & solutions', title: 'Every layer. Covered.', description: 'From strong foundations to the final finish.', action: 'Explore materials', href: '#materials' },
   { image: '/images/transport-truck.webp', alt: 'White delivery truck carrying construction materials', label: 'Transport & delivery', title: 'Delivered. Simply.', description: 'Your materials, moving in the right direction.', action: 'Plan your delivery', href: '#quote' },
 ];
+// Copies at either end let each transition move one slide before an invisible reset.
+const loopSlides = [slides[slides.length - 1], ...slides, slides[0]];
 
 export function HomeHero() {
   const track = useRef<HTMLDivElement>(null);
   const activeIndex = useRef(0);
+  const loopReset = useRef<number | null>(null);
   const settleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const transitionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const drag = useRef<{ pointerId: number; x: number; scrollLeft: number; index: number } | null>(null);
@@ -34,12 +37,15 @@ export function HomeHero() {
     return () => preference.removeEventListener('change', update);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const element = track.current;
     if (!element) return;
-    const resize = new ResizeObserver(() => {
-      element.scrollTo({ left: activeIndex.current * element.clientWidth, behavior: 'instant' });
-    });
+    const align = () => {
+      loopReset.current = (activeIndex.current + 1) * element.clientWidth;
+      element.scrollTo({ left: loopReset.current, behavior: 'instant' });
+    };
+    align();
+    const resize = new ResizeObserver(align);
     resize.observe(element);
     return () => {
       resize.disconnect();
@@ -55,7 +61,7 @@ export function HomeHero() {
     if (transitionTimer.current) clearTimeout(transitionTimer.current);
     setScrolling(true);
     transitionTimer.current = setTimeout(() => {
-      element.scrollTo({ left: index * element.clientWidth, behavior: reducedMotion ? 'instant' : 'smooth' });
+      element.scrollTo({ left: (index + 1) * element.clientWidth, behavior: reducedMotion ? 'instant' : 'smooth' });
     }, reducedMotion ? 0 : 220);
   }, [reducedMotion]);
 
@@ -63,21 +69,31 @@ export function HomeHero() {
     if (hovered || focused || scrolling || touching || reducedMotion) return;
     const timer = window.setInterval(() => {
       if (!document.hidden && track.current) {
-        showSlide((active + 1) % slides.length);
+        showSlide(active + 1);
       }
     }, 6500);
     return () => window.clearInterval(timer);
   }, [hovered, focused, scrolling, touching, reducedMotion, active, showSlide]);
 
   const handleScroll = () => {
+    const element = track.current;
+    if (!element) return;
+    // Ignore the instant move between identical copies; it must not hide the new text.
+    if (loopReset.current !== null && Math.abs(element.scrollLeft - loopReset.current) < 1) return;
+    loopReset.current = null;
     setScrolling(true);
     if (settleTimer.current) clearTimeout(settleTimer.current);
     if (drag.current) return;
     settleTimer.current = setTimeout(() => {
       const element = track.current;
       if (!element || !element.clientWidth) return;
-      const index = Math.max(0, Math.min(slides.length - 1, Math.round(element.scrollLeft / element.clientWidth)));
+      const position = Math.max(0, Math.min(loopSlides.length - 1, Math.round(element.scrollLeft / element.clientWidth)));
+      const index = (position - 1 + slides.length) % slides.length;
       activeIndex.current = index;
+      if (position === 0 || position === loopSlides.length - 1) {
+        loopReset.current = (index + 1) * element.clientWidth;
+        element.scrollTo({ left: loopReset.current, behavior: 'instant' });
+      }
       setActive(index);
       setScrolling(false);
     }, 150);
@@ -96,7 +112,7 @@ export function HomeHero() {
     setDragging(false);
     setTouching(false);
     if (element.hasPointerCapture(event.pointerId)) element.releasePointerCapture(event.pointerId);
-    element.scrollTo({ left: Math.max(0, Math.min(slides.length - 1, index)) * element.clientWidth, behavior: reducedMotion ? 'instant' : 'smooth' });
+    element.scrollTo({ left: Math.max(0, Math.min(loopSlides.length - 1, index)) * element.clientWidth, behavior: reducedMotion ? 'instant' : 'smooth' });
     handleScroll();
   };
 
@@ -159,23 +175,27 @@ export function HomeHero() {
           if (event.target !== event.currentTarget) return;
           if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
             event.preventDefault();
-            showSlide((active + (event.key === 'ArrowRight' ? 1 : -1) + slides.length) % slides.length);
+            showSlide(active + (event.key === 'ArrowRight' ? 1 : -1));
           } else if (event.key === 'Home' || event.key === 'End') {
             event.preventDefault();
             showSlide(event.key === 'Home' ? 0 : slides.length - 1);
           }
         }}
       >
-        {slides.map((slide, index) => (
+        {loopSlides.map((slide, position) => {
+          const index = (position - 1 + slides.length) % slides.length;
+          const isClone = position === 0 || position === loopSlides.length - 1;
+          return (
           <div
-            key={slide.image}
+            key={`${position}-${slide.image}`}
             role="group"
             aria-roledescription="slide"
             aria-label={`${index + 1} of ${slides.length}: ${slide.label}`}
-            aria-hidden={index !== active}
-            inert={index !== active}
+            aria-hidden={isClone || index !== active}
+            inert={isClone || index !== active}
             className={styles.slide}
             data-active={index === active}
+            data-loop-clone={isClone}
           >
             <div className={styles.content}>
               <p className={`${styles.reveal} ${styles.eyebrow}`}>{slide.label}</p>
@@ -186,28 +206,16 @@ export function HomeHero() {
               </a>
             </div>
             <div className={styles.image}>
-              <Image src={slide.image} alt={slide.alt} fill sizes="100vw" preload={index === 0} loading={index === 0 ? undefined : 'eager'} className={styles.photo} draggable={false} />
+              <Image src={slide.image} alt={isClone ? '' : slide.alt} fill sizes="100vw" preload={position === 1} loading={position === 1 ? undefined : 'eager'} className={styles.photo} draggable={false} />
             </div>
             <div aria-hidden="true" className={styles.overlay} />
           </div>
-        ))}
+          );
+        })}
       </div>
         <div className={styles.sideArrows} data-visible={!scrolling} aria-hidden={scrolling}>
-          <button type="button" aria-label="Previous slide" disabled={scrolling} onClick={() => showSlide((active - 1 + slides.length) % slides.length)} className={styles.arrow}><ArrowLeft size={20} /></button>
-          <button type="button" aria-label="Next slide" disabled={scrolling} onClick={() => showSlide((active + 1) % slides.length)} className={styles.arrow}><ArrowRight size={20} /></button>
-        </div>
-      </div>
-      <div className={styles.toolbar}>
-        <div className={styles.identity}>Mahal Foret Hayat<span>Materials. Transport. Expertise.</span></div>
-        <div className={styles.controls} aria-label="Slideshow controls">
-          <span className={styles.counter}>0{active + 1}<span> / 0{slides.length}</span></span>
-          <div className={styles.indicators}>
-            {slides.map((slide, index) => (
-              <button key={slide.image} type="button" aria-label={`Show slide ${index + 1}: ${slide.label}`} aria-pressed={active === index} onClick={() => showSlide(index)} className={styles.indicator}>
-                <span className={active === index ? styles.selected : ''} />
-              </button>
-            ))}
-          </div>
+          <button type="button" aria-label="Previous slide" disabled={scrolling} onClick={() => showSlide(active - 1)} className={styles.arrow}><ArrowLeft size={20} /></button>
+          <button type="button" aria-label="Next slide" disabled={scrolling} onClick={() => showSlide(active + 1)} className={styles.arrow}><ArrowRight size={20} /></button>
         </div>
       </div>
       <p className={styles.swipeHint}>Swipe to explore <ArrowRight size={12} aria-hidden="true" /></p>
