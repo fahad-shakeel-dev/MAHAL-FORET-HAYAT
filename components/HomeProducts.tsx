@@ -4,9 +4,9 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Reveal } from './Reveal';
 
 const products = [
-  { name: 'Cement', image: '/images/cement-bags.webp', alt: 'Cement bags stacked on a pallet', href: '/products#cement', description: 'For strong foundations, concrete and masonry.', types: ['Riyadh Cement', 'Saudi Cement', 'Eastern'] },
-  { name: 'Sand', image: '/images/materials/washed-sand.jpg', alt: 'Construction sand stockpile', href: '/products#sand', description: 'Construction sand for every stage of your build.', types: ['Washed', 'Plastering', 'Backfill'] },
-  { name: 'Stone & aggregates', image: '/images/materials/aggregate-3-4.jpg', alt: 'Crushed stone aggregate', href: '/products#bajri', description: 'Graded stone for concrete, roads and site preparation.', types: ['Crushed stone', 'Graded aggregates', 'Base materials'] },
+  { name: 'Cement', image: '/images/home-cement.webp', alt: 'Neatly stacked cement bags on a wooden warehouse pallet', href: '/products#cement', description: 'For strong foundations, concrete and masonry.', types: ['Riyadh Cement', 'Saudi Cement', 'Eastern'] },
+  { name: 'Sand', image: '/images/home-sand.webp', alt: 'Golden construction sand stockpile in a material supply yard', href: '/products#sand', description: 'Construction sand for every stage of your build.', types: ['Washed', 'Plastering', 'Backfill'] },
+  { name: 'Stone & aggregates', image: '/images/home-aggregates.webp', alt: 'Grey crushed stone stockpile with detailed angular aggregates', href: '/products#bajri', description: 'Graded stone for concrete, roads and site preparation.', types: ['Crushed stone', 'Graded aggregates', 'Base materials'] },
 ];
 
 export function HomeProducts() {

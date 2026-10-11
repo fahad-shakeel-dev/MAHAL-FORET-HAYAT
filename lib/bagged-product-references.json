@@ -1,0 +1,22 @@
+{
+  "eastern-lpc": {
+    "image": "products/eastern-lpc.webp",
+    "source": "https://www.youmats.com/en/building-material/cement/finishing-cement-packaging-50-kg-eastern-cement-company-912/i",
+    "imageSource": "https://d3usa7hclic8la.cloudfront.net/Y35372IOS/conversions/the-eastern-size_500_500.webp"
+  },
+  "eastern-src": {
+    "image": "products/eastern-src.webp",
+    "source": "https://www.youmats.com/en/building-material/cement/sulphate-resisting-portland-cement-50-kg-eastern-company-425/i",
+    "imageSource": "https://d3usa7hclic8la.cloudfront.net/YF9462IP4/conversions/the-eastern2-size_500_500.webp"
+  },
+  "eastern-opc": {
+    "image": "products/eastern-opc.webp",
+    "source": "https://www.madar.com/en_SA/eastern-cement.html",
+    "imageSource": "https://www.madar.com/media/catalog/product/1/2/128.png"
+  },
+  "national-gypsum": {
+    "image": "products/national-gypsum.webp",
+    "source": "https://www.masheedgate.com/ar/national-gypsum%2C-white-gypsum-powder-bag-40-kg/5637504236.p",
+    "imageSource": "https://images-eu-prod.cms.commerce.dynamics.com/cms/api/jthkvhqjqb/imageFileData/search?fileName=/Products%2F61GGPS000NGC0040KGL_000_001.png"
+  }
+}

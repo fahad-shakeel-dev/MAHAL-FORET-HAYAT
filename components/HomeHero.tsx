@@ -9,7 +9,7 @@ import styles from './HomeHero.module.css';
 const slides = [
   { image: '/images/architecture.jpg', alt: 'Modern glass buildings against a pale blue sky', label: 'Build with confidence', title: 'Built for better.', description: 'Materials that bring your project to life.', action: 'Start your project', href: '#quote' },
   { image: '/images/infrastructure.jpg', alt: 'Blue industrial equipment in a bright, clean facility', label: 'Materials & solutions', title: 'Every layer. Covered.', description: 'From strong foundations to the final finish.', action: 'Explore materials', href: '#materials' },
-  { image: '/images/transport-truck.webp', alt: 'White delivery truck carrying construction materials', label: 'Transport & delivery', title: 'Delivered. Simply.', description: 'Your materials, moving in the right direction.', action: 'Plan your delivery', href: '#quote' },
+  { image: '/images/hero-dispatch.webp', alt: 'Construction materials organized in a bright warehouse dispatch area', label: 'Transport & delivery', title: 'Delivered. Simply.', description: 'Your materials, moving in the right direction.', action: 'Plan your delivery', href: '#quote' },
 ];
 // Copies at either end let each transition move one slide before an invisible reset.
 const loopSlides = [slides[slides.length - 1], ...slides, slides[0]];

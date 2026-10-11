@@ -1,6 +1,7 @@
 import { groups, categoryIds, productSlug } from './product-navigation';
 import { bulkProducts } from './bulk-products';
 import { savetoProducts } from './saveto-products';
+import { baggedProducts } from './bagged-products';
 import { productName, arabicProductName } from './product-names';
 
 export type ProductOverview = { slug: string; name: string; arabicName?: string; searchAliases?: string[]; category: string; categoryId: string; image: string; description: string; uses: string[]; features: string[]; facts: [string, string][]; family?: boolean; representativeImage?: boolean; source?: string; price?: number; originalPrice?: number; priceCheckedAt?: string };
@@ -24,5 +25,5 @@ function catalogProduct(product: ProductOverview): ProductOverview {
   };
 }
 
-export const products: ProductOverview[] = [...savetoProducts, ...bulkProducts].map(catalogProduct);
+export const products: ProductOverview[] = [...savetoProducts, ...bulkProducts, ...baggedProducts].map(catalogProduct);
 export const allOverviews = [...products, ...existingProducts.map(catalogProduct), ...materialFamilies];

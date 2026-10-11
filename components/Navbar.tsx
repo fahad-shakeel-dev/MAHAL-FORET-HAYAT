@@ -184,7 +184,7 @@ export function Navbar() {
 
           {/* Desktop Navigation Links */}
           {!isSearchOpen && (
-            <div className="hidden lg:flex items-center gap-4 xl:gap-7">
+            <div className="hidden lg:flex items-center gap-6 xl:gap-10">
               {navigationLinks.slice(0, 2).map((link) => (
                 <Link 
                   key={link.href} 
@@ -262,9 +262,6 @@ export function Navbar() {
                 {!isSearchOpen && (
                   <div className="hidden md:flex items-center gap-2 ml-2">
                     <span className="text-[13px] font-semibold text-neutral-500 group-hover:text-neutral-700 whitespace-nowrap transition-colors">Search</span>
-                    <kbd className="text-[10px] bg-white text-neutral-400 px-1.5 py-0.5 rounded shadow-sm border border-neutral-200 font-mono tracking-tighter">
-                      ⌘K
-                    </kbd>
                   </div>
                 )}
 

@@ -11,8 +11,14 @@ These photographs represent materials and transport. They are not photographs of
 
 The resized transport photograph remains available under CC BY-SA 4.0. The cement image shows representative packaging, rather than packaging from the cement manufacturers stocked by the company.
 
+## Generated homepage imagery
+
+`hero-dispatch.webp`, `home-cement.webp`, `home-sand.webp`, and `home-aggregates.webp` were generated with the built-in imagegen tool and optimized as WebP. They are representative scenes, not photographs of company premises, stock, or branded packaging. Generation prompts are recorded in `docs/HOME-IMAGE-PROMPTS.md`.
+
 ## Product packaging references
 
 Files in `products/` were downloaded from the user-supplied Shalalat Store catalog and Masdar Online product pages. Source URLs for individual products and their photographs are recorded in `lib/product-references.json` and `lib/cement-references.json`. Packaging and marks belong to their respective owners; no open reuse license has been established.
+
+The Eastern Cement OPC, SRC and finishing cement photos and National Gypsum white powder photo were sourced from Madar, Youmats and Masheed Gate to match the user's supplied product references. Product pages and original image URLs are recorded in `lib/bagged-product-references.json`. These packaging photographs retain their owners' marks; no open reuse license has been established.
 
 Sand and aggregate detail pages use sixteen distinct supplier material photographs stored in `materials/`. Their original image URLs and identified material types are recorded in `lib/material-photo-references.json` for internal provenance. No source links are displayed on the product pages. These photos represent material types, rather than the company's own stock or verified sieve grading. Supplier origins include Noor Al Yamama, Soil Yourself, Kovai Sands, SiteOne and Foley Materials; no open reuse license has been established.
