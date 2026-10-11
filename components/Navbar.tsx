@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Search, Menu, Phone, X } from 'lucide-react';
+import { Search, Menu, Mail, Phone, X } from 'lucide-react';
 import Link from 'next/link';
 import { ProductSearchResults } from './ProductSearchResults';
 import { useRouter } from 'next/navigation';
@@ -139,6 +139,7 @@ export function Navbar() {
               <span className="tracking-wider">Project inquiries</span>
             </a>
             <span className="hidden sm:inline-block text-neutral-700">|</span>
+            <a href={contactDetails.emailHref} className="hidden items-center gap-2 text-neutral-300 transition-colors hover:text-white xl:inline-flex"><Mail className="h-3 w-3 shrink-0" /><span dir="ltr">{contactDetails.email}</span></a>
             <Link 
               href="/contact?purpose=technical#quote" 
               className="hidden sm:inline-block hover:text-white transition-colors text-neutral-400 hover:text-neutral-200"

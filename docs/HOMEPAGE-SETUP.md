@@ -18,18 +18,11 @@ TDS links open the manufacturer resources/product page, and downloads may requir
 
 ## Quote delivery
 
-Set these server-only values in `.env.local` or the hosting environment:
+All contact, homepage, product, brand, project and technical document inquiry forms share `QuoteForm` in `components/HomeInteractions.tsx`. They submit to `/api/quote`, which validates the request and forwards it to `https://formspree.io/f/xbgdkzkj` with `Accept: application/json`.
 
-```dotenv
-QUOTE_WEBHOOK_URL=https://your-approved-quote-receiver.example/requests
-QUOTE_WEBHOOK_TOKEN=optional-receiver-bearer-token
-```
+Formspree receives the visitor's name, phone, optional email, message, source and submission timestamp. A supplied email is used as the reply address; an empty optional email is omitted. The destination inbox is managed in the Formspree dashboard. No webhook environment variables or bearer token are required.
 
-The receiver must accept a JSON POST with `company`, `contact`, `phone`, `email`, `location`, `requirements`, `consent`, `submittedAt`, `source`, and optional `attachment` (`filename`, `contentType`, `size`, `base64`). A successful 2xx response means the receiver has accepted responsibility for storing/routing the inquiry and contacting the customer. Never prefix these variables with `NEXT_PUBLIC_`.
-
-Without a configured receiver, submission explicitly reports that delivery is not connected and does not report success. The user can download a text draft locally; this draft lists the BOQ filename and requires the original attachment when manually sending.
-
-PDF/XLS/XLSX attachments are optional and limited to 10 MB. The API validates required fields, contact consent, file extension/signature and body size, and includes a honeypot and same-origin check. Configure durable rate limits at the hosting/receiver layer before a public launch and confirm host request-size limits allow the intended upload size. The receiver should scan attachments and define retention/access rules.
+The API checks required fields, field lengths, email and phone format, a 64 KB request limit, a honeypot and same-origin requests. A successful Formspree response shows the confirmation and resets the form; rejected or failed delivery keeps the visitor's message available for retry. These forms do not include file uploads. WhatsApp and email remain available as direct contact options.
 
 ## Image sources
 

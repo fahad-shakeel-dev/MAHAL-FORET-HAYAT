@@ -1,6 +1,6 @@
 ﻿import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowUp, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import { socialLinks } from '@/lib/social-links';
 import { contactDetails } from '@/lib/contact-details';
 import { deliveryLocations } from '@/lib/delivery-locations';
@@ -31,7 +31,7 @@ function SocialIcon({ name }: { name: string }) {
 }
 
 export function Footer() {
-  const location = deliveryLocations.find(item => item.kind === 'Office') ?? deliveryLocations.find(item => item.kind === 'Warehouse');
+  const location = deliveryLocations.find(item => item.kind !== 'Delivery area');
   const footerSocials = ['Instagram', 'Facebook', 'WhatsApp', 'TikTok'].map(name => ({ name, href: name === 'WhatsApp' ? contactDetails.whatsappHref : socialLinks.find(link => link.name === name)!.href }));
   const socialStyle = 'flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-neutral-300 transition-colors hover:border-brand-400/60 hover:bg-brand-500/10 hover:text-brand-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400';
   return (
@@ -43,7 +43,8 @@ export function Footer() {
           <h2 className="mt-6 text-sm font-normal text-neutral-100">Contact</h2>
           <address className="mt-2 space-y-1 text-[13px] leading-6 not-italic">
             <a href={contactDetails.phoneHref} className="flex min-h-10 w-fit items-center gap-3 text-neutral-200 transition-colors hover:text-brand-300"><Phone size={16} className="shrink-0 text-brand-400" strokeWidth={1.5} /><span dir="ltr">{contactDetails.displayNumber}</span></a>
-            <Link href="/contact#delivery" className="flex min-h-10 w-fit items-start gap-3 py-2 text-neutral-400 transition-colors hover:text-brand-300"><MapPin size={17} className="mt-1 shrink-0 text-brand-400" strokeWidth={1.5} /><span>{location?.address ?? 'Our location'}</span></Link>
+            <a href={contactDetails.emailHref} className="flex min-h-10 max-w-full items-center gap-3 text-neutral-200 transition-colors hover:text-brand-300"><Mail size={16} className="shrink-0 text-brand-400" strokeWidth={1.5} /><span dir="ltr" className="min-w-0 break-all">{contactDetails.email}</span></a>
+            <Link href="/contact#location" className="flex min-h-10 w-fit items-start gap-3 py-2 text-neutral-400 transition-colors hover:text-brand-300"><MapPin size={17} className="mt-1 shrink-0 text-brand-400" strokeWidth={1.5} /><span>{location?.address ?? 'Our location'}</span></Link>
           </address>
 
         </div>

@@ -1,5 +1,7 @@
 ﻿export const runtime = 'nodejs';
 
+const formspreeEndpoint = 'https://formspree.io/f/xbgdkzkj';
+
 export async function POST(request: Request) {
   const origin = request.headers.get('origin');
   if (origin && origin !== new URL(request.url).origin) {
@@ -32,13 +34,17 @@ export async function POST(request: Request) {
     }
     if (!/^[+\d\s().-]{7,30}$/.test(fields.phone)) return Response.json({ error: 'Please enter a valid phone number.' }, { status: 400 });
     if (fields.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) return Response.json({ error: 'Please check your email address, or leave it empty.' }, { status: 400 });
-    const endpoint = process.env.QUOTE_WEBHOOK_URL;
-    if (!endpoint) return Response.json({ error: 'Online messages are not connected yet. Please use Send on WhatsApp below.' }, { status: 503 });
-    if (new URL(endpoint).protocol !== 'https:') return Response.json({ error: 'We could not send your message. Please use WhatsApp or try again later.' }, { status: 503 });
-    const response = await fetch(endpoint, {
+    const response = await fetch(formspreeEndpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...(process.env.QUOTE_WEBHOOK_TOKEN ? { Authorization: `Bearer ${process.env.QUOTE_WEBHOOK_TOKEN}` } : {}) },
-      body: JSON.stringify({ ...fields, submittedAt: new Date().toISOString(), source: form.get('source') === 'contact' ? 'contact' : 'website' }),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name: fields.contact,
+        phone: fields.phone,
+        ...(fields.email ? { email: fields.email } : {}),
+        message: fields.requirements,
+        source: form.get('source') === 'contact' ? 'contact' : 'website',
+        submittedAt: new Date().toISOString(),
+      }),
       signal: AbortSignal.timeout(15000),
       redirect: 'error',
     });

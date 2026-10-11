@@ -96,6 +96,7 @@ export function QuoteForm({ detailed = false }: { detailed?: boolean }) {
     <p className="mt-4 text-xs leading-5 text-neutral-400">We’ll use your details to reply to your inquiry.</p>
     <button type="submit" disabled={pending} className="home-button mt-5 w-full rounded-lg bg-brand-700 text-white hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-50">{pending ? 'Sending…' : 'Send message'}<ArrowRight className="h-4 w-4" /></button>
     <button type="button" onClick={openWhatsApp} disabled={pending} className="mt-4 flex w-full items-center justify-center gap-2 text-sm font-medium text-brand-700 hover:text-brand-900 disabled:opacity-50"><MessageCircle className="h-4 w-4" />Send on WhatsApp</button>
+    <a href={contactDetails.emailHref} dir="ltr" className="mt-4 block break-all text-center text-sm font-medium text-brand-700 hover:text-brand-900">{contactDetails.email}</a>
     {status && <p role="status" className="mt-5 rounded-lg bg-brand-50 p-3 text-sm leading-6 text-neutral-700">{status}</p>}
   </form>;
 }
