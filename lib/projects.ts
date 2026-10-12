@@ -1,41 +1,76 @@
-export type ProjectStudy = {
-  slug: string; title: string; sector: string; image: string; summary: string;
-  scope: string; challenges: string[];
-  systems: { name: string; product: string; href: string; detail: string; application: string }[];
+export type ProjectPhoto = {
+  src: string;
+  alt: string;
+  caption: string;
+  sourceUrl: string;
+  sourceLabel: string;
 };
 
+export type ProjectStudy = {
+  slug: string;
+  title: string;
+  arabicName: string;
+  label: string;
+  status: 'Ongoing supply' | 'Completed';
+  role: string;
+  year?: string;
+  summary: string;
+  scope: string;
+  referenceUrl: string;
+  overview: string;
+  photos: ProjectPhoto[];
+};
+
+// Supply relationships and the 2017 project were provided by MAHAL FORET HAYAT.
+// Google links identify the companies; they do not document our scope of work.
 export const projectStudies: ProjectStudy[] = [
   {
-    slug: 'infrastructure', title: 'Below-grade infrastructure', sector: 'Civil & infrastructure', image: 'infrastructure.jpg',
-    summary: 'A coordinated approach to concrete finishing, below-grade waterproofing and precision grouting.',
-    scope: 'Infrastructure specifications bring multiple material systems together. Concrete surface quality, waterproofing continuity and equipment-base detailing each need their own selection, preparation and inspection plan. This application study illustrates how those decisions can be coordinated before work reaches site.',
-    challenges: ['Coordinate waterproofing details at joints, penetrations and changes in level.', 'Identify whether concrete needs cosmetic fairing or structural repair before choosing a mortar.', 'Align material sequencing with access, inspection and offloading requirements.'],
-    systems: [
-      { name: 'Concrete surface preparation', product: 'Concrete Repair Mortar', href: '/products/saveto-sdswqq', detail: 'Review fairing coats for cosmetic concrete imperfections. Structural repairs require a separately specified system; a surface fairing coat does not replace structural repair mortar.', application: 'Concrete finishing' },
-      { name: 'Below-grade waterproofing', product: 'PVC & TPO membrane systems', href: '/products/pvc-tpo-membranes-insuwrap', detail: 'Evaluate membrane suitability, jointing, penetration details and protection layers against the water exposure and project specification.', application: 'Substructure waterproofing' },
-      { name: 'Precision grouting', product: 'Non-shrink precision grouts', href: '/contact#quote', detail: 'Review grout depth, loading, substrate preparation and curing requirements for bases and anchoring details. Confirm the exact product with the design specification.', application: 'Bases & anchoring' },
+    slug: 'benaa-betco',
+    title: 'Benaa BETCO',
+    arabicName: 'شركة بناء بيتكو للمقاولات',
+    label: 'BETCO',
+    status: 'Ongoing supply',
+    role: 'Construction material supply',
+    summary: 'We currently supply construction materials to Benaa BETCO for their ongoing projects.',
+    scope: 'MAHAL FORET HAYAT works with Benaa BETCO as a construction material supplier, supporting their ongoing project requirements.',
+    referenceUrl: 'https://share.google/PGhR4HNdEsyD95xV2',
+    overview: 'Benaa BETCO is a construction contractor based in Dammam. Our relationship with the company is focused on supplying construction materials for its ongoing projects.',
+    photos: [
+      { src: '/images/projects/betco-site.jpg', alt: 'Aerial view of a construction site published by Benaa BETCO', caption: 'BETCO construction portfolio', sourceUrl: 'https://betco.com.sa/', sourceLabel: 'Benaa BETCO' },
+      { src: '/images/projects/betco-office.jpg', alt: 'Benaa BETCO name and signage at its office entrance', caption: 'BETCO office entrance', sourceUrl: 'https://www.linkedin.com/company/betco/', sourceLabel: 'BETCO on LinkedIn' },
     ],
   },
   {
-    slug: 'commercial', title: 'Commercial spaces, ready to perform', sector: 'Commercial buildings', image: 'commercial.jpg',
-    summary: 'Floor preparation, tile fixing and exposed-roof protection considered as one material plan.',
-    scope: 'Commercial spaces combine demanding finish schedules with different exposure conditions. Floor preparation must support the selected finish, adhesives must suit the tiles and substrate, and roofing requires a separate waterproofing review. This study connects those material decisions with practical project coordination.',
-    challenges: ['Coordinate floor levels and preparation with the final finish specification.', 'Review tile type, substrate movement and installation conditions.', 'Plan roofing details and access around adjacent trades.'],
-    systems: [
-      { name: 'Floor preparation', product: 'Floor preparation', href: '/contact#quote', detail: 'Review the self-leveling underlayment for compatible concrete substrates and final coverings, including preparation, priming and application thickness.', application: 'Interior underlayments' },
-      { name: 'Tile fixing', product: 'Ceramic Tile Adhesive', href: '/products/saveto-502130', detail: 'Consider internal ceramic and terrazzo installations. Confirm tile compatibility and the required adhesive classification before selecting a product for other tile types.', application: 'Internal walls & floors' },
-      { name: 'Roof waterproofing', product: 'White Roof Coating', href: '/products/saveto-v14', detail: 'Evaluate a liquid-applied roof membrane with the substrate, drainage, detailing and exposure conditions in mind.', application: 'Exposed roofing' },
+    slug: 'alfanar-projects',
+    title: 'Alfanar Projects',
+    arabicName: 'الفنار للمشاريع',
+    label: 'Alfanar',
+    status: 'Ongoing supply',
+    role: 'Construction material supply',
+    summary: 'We currently supply construction materials to Alfanar Projects for their ongoing projects.',
+    scope: 'MAHAL FORET HAYAT works with Alfanar Projects as a construction material supplier, supporting their ongoing project requirements.',
+    referenceUrl: 'https://share.google/hkQM9KIwsELtwOpzA',
+    overview: 'Alfanar Projects works across engineering, construction and infrastructure. MAHAL FORET HAYAT supports the company through an ongoing construction material supply relationship.',
+    photos: [
+      { src: '/images/projects/alfanar-front.jpg', alt: 'Alfanar office building with its blue and white facade', caption: 'Alfanar office exterior', sourceUrl: 'https://gludo.org/en/business-directory/1793-alfanar-projects', sourceLabel: 'Alfanar listing on Gludo' },
+      { src: '/images/projects/alfanar-lobby.jpg', alt: 'Alfanar Projects reception and entrance lobby', caption: 'Alfanar Projects reception', sourceUrl: 'https://gludo.org/en/business-directory/1793-alfanar-projects', sourceLabel: 'Alfanar listing on Gludo' },
+      { src: '/images/projects/alfanar-office.jpg', alt: 'Front entrance of the Alfanar office building', caption: 'Alfanar corporate building', sourceUrl: 'https://alfanarprojects.com/en-us/resources/local-content-global-success-how-the-kingdom-is-working-towards-a-sustainable-future/', sourceLabel: 'Alfanar Projects' },
     ],
   },
   {
-    slug: 'residential', title: 'Residential finishes, thoughtfully coordinated', sector: 'Residential developments', image: 'residential.jpg',
-    summary: 'Blockwork, internal tiling and wet-area waterproofing aligned with the building sequence.',
-    scope: 'Residential work requires consistent interfaces between masonry, waterproofing and final finishes. This application study shows a material-selection sequence that starts with the substrate and carries through to the final surface, with documentation and site conditions reviewed at each stage.',
-    challenges: ['Match masonry adhesive to the selected blocks and application conditions.', 'Review wet-area waterproofing before installing the final tile finish.', 'Coordinate curing and inspection stages before follow-on trades.'],
-    systems: [
-      { name: 'AAC blockwork', product: 'Masonry material selection', href: '/contact#quote', detail: 'Review adhesive systems for autoclaved aerated concrete blocks and panels, following the preparation and thin-bed requirements for the selected material.', application: 'AAC masonry' },
-      { name: 'Internal tile installation', product: 'Ceramic Tile Adhesive', href: '/products/saveto-502130', detail: 'Review the adhesive for compatible internal ceramic and terrazzo tiles. Check the substrate and application guidance before installation.', application: 'Internal finishes' },
-      { name: 'Wet-area waterproofing', product: 'Cementitious slurry coats', href: '/products/saveto-waterpro', detail: 'Review coating suitability, corners, penetrations and curing requirements. Confirm compatibility between waterproofing and the proposed tile-fixing system.', application: 'Wet-area detailing' },
+    slug: 'joud-united-2017',
+    title: 'Joud United Company Limited',
+    arabicName: 'شركة جود المتحدة المحدودة',
+    label: 'JOUD',
+    status: 'Completed',
+    role: 'Building construction',
+    year: '2017',
+    summary: 'We constructed the Joud United Company Limited building in 2017.',
+    scope: 'MAHAL FORET HAYAT constructed the building for Joud United Company Limited, completing the project in 2017.',
+    referenceUrl: 'https://share.google/9c2KIMYtj4sNW6MA2',
+    overview: 'The Joud United Company Limited building is a completed construction project in our company history. MAHAL FORET HAYAT constructed the building in 2017.',
+    photos: [
+      { src: '/images/projects/joud-building.jpeg', alt: 'Joud United building with glass facade and surrounding compound', caption: 'Joud United building', sourceUrl: 'https://www.joudparts.com/en', sourceLabel: 'Joud company website' },
     ],
   },
 ];
