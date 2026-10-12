@@ -1,11 +1,5 @@
-import type { Metadata } from 'next';
-import { ProductDetail } from '@/components/ProductDetail';
-
-export const metadata: Metadata = {
-  title: 'Ceramic Tile Fix | MAHAL FORET HAYAT',
-  description: 'Ceramic Tile Fix packaging, technical resources, material calculator and bulk quote requests.',
-};
+import { redirect } from 'next/navigation';
 
 export default function CeramicTileFixPage() {
-  return <ProductDetail />;
+  redirect('/products/saveto-502130');
 }

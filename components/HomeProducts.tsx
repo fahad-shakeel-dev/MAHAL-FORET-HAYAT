@@ -7,6 +7,7 @@ const products = [
   { name: 'Cement', image: '/images/home-cement.webp', alt: 'Neatly stacked cement bags on a wooden warehouse pallet', href: '/products#cement', description: 'For strong foundations, concrete and masonry.', types: ['Riyadh Cement', 'Saudi Cement', 'Eastern'] },
   { name: 'Sand', image: '/images/home-sand.webp', alt: 'Golden construction sand stockpile in a material supply yard', href: '/products#sand', description: 'Construction sand for every stage of your build.', types: ['Washed', 'Plastering', 'Backfill'] },
   { name: 'Stone & aggregates', image: '/images/home-aggregates.webp', alt: 'Grey crushed stone stockpile with detailed angular aggregates', href: '/products#bajri', description: 'Graded stone for concrete, roads and site preparation.', types: ['Crushed stone', 'Graded aggregates', 'Base materials'] },
+  { name: 'Saveto products', image: '/images/products/t081s.png', alt: 'Saveto Vetonit tile grout packaging', href: '/products?q=Saveto#catalog', description: 'Adhesives, grouts and finishing materials for your project.', types: ['Tile adhesives & grouts', 'Waterproofing', 'Putty & bonding agents'] },
 ];
 
 export function HomeProducts() {
@@ -21,7 +22,7 @@ export function HomeProducts() {
           <Reveal key={product.name}>
             <article className="group grid overflow-hidden rounded-[1.75rem] border border-neutral-200 bg-linear-to-br from-white to-brand-50/40 p-3 transition-[border-color,box-shadow] duration-300 hover:border-brand-300 hover:shadow-[0_12px_32px_rgba(83,59,29,0.06)] md:grid-cols-[0.85fr_1.15fr] md:gap-3 sm:rounded-[2rem] sm:p-4">
               <div className="relative aspect-[16/10] min-w-0 overflow-hidden rounded-[1.125rem] bg-neutral-100 md:aspect-auto md:min-h-72 sm:rounded-[1.375rem]">
-                <Image src={product.image} alt={product.alt} fill sizes="(max-width: 767px) 100vw, 45vw" className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105" />
+                <Image src={product.image} alt={product.alt} fill sizes="(max-width: 767px) 100vw, 45vw" className={`${product.name === 'Saveto products' ? 'h-full object-contain p-8' : 'object-cover'} transition-transform duration-700 motion-safe:group-hover:scale-105`} />
               </div>
               <div className="flex min-w-0 flex-col justify-center px-3 pb-4 pt-6 sm:p-7 lg:px-10 lg:py-8">
                 <h3 className="home-subheading text-neutral-900">{product.name}</h3>

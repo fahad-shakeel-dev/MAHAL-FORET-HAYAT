@@ -8,11 +8,12 @@ import { products, type ProductOverview } from '@/lib/products';
 import styles from './ProductsMenu.module.css';
 
 const select = (test: (product: ProductOverview) => boolean) => products.filter(test);
-const saveto = (test: (product: ProductOverview) => boolean) => select(product => product.categoryId !== 'cement' && test(product));
+const saveto = (test: (product: ProductOverview) => boolean) => select(product => product.slug.startsWith('saveto-') && test(product));
 const menuGroups = [
   { title: 'Cement', description: 'Bagged cement for every stage', icon: Package, groups: [
     { title: 'Riyadh Cement', items: select(p => p.slug.startsWith('riyadh-')) },
     { title: 'Saudi Cement', items: select(p => p.slug.startsWith('saudi-')) },
+    { title: 'Eastern Cement', items: select(p => p.slug.startsWith('eastern-')) },
   ] },
   { title: 'Sand', description: 'Fine, washed & filling sands', icon: Shovel, groups: [
     { title: 'Building & finishing', items: select(p => ['washed-sand', 'plastering-sand', 'masonry-sand'].includes(p.slug)) },
@@ -26,7 +27,7 @@ const menuGroups = [
     { title: 'Large rock & stone', items: select(p => ['rock-4-inch', 'stone-1-to-6-inch'].includes(p.slug)) },
     { title: 'Black filling', items: select(p => p.slug === 'black-filling') },
   ] },
-  { title: 'Finishing Materials', description: 'Adhesives, grouts & finishes', icon: Layers3, groups: [
+  { title: 'Saveto Products', description: 'Adhesives, grouts & finishes', icon: Layers3, groups: [
     { title: 'Tile adhesives', items: saveto(p => /Adhesive|Premium Fix/.test(p.name)) },
     { title: 'Tile grout colors', items: saveto(p => p.name.includes('Tile Grout')) },
     { title: 'Antibacterial grouts', items: saveto(p => p.name.includes('Antibacterial')) },

@@ -9,10 +9,10 @@ const brands = [
   {
     id: 'vetonit', number: '01', name: 'Vetonit', tagline: 'Finishing & construction chemistry', logo: 'vetonit.png',
     description: 'A material range spanning cementitious mortars, tile fixing, concrete surface repair and floor preparation. Explore systems suited to your surface, finish and project specification.',
-    applications: ['Wall and facade renders', 'Tile adhesives and grouts', 'Fairing coats and concrete repair', 'Self-leveling floor underlayments'],
+    applications: ['Tile adhesives and grouts', 'Silicone joint sealants', 'Roof waterproofing', 'Plaster bonding agents'],
     standards: 'Ask for the applicable EN 12004, EN 998 or ISO 13007 documentation for the selected product and variant.',
-    href: '/products', action: 'Explore Vetonit products', resources: ['Technical data sheets', 'Color charts'],
-    links: [{ name: 'Tile fixing', href: '/products/ceramic-tile-fix' }, { name: 'Concrete fairing', href: '/products/vetorep-cr523' }, { name: 'Floor preparation', href: '/products/vetotop-cl530' }],
+    href: '/products?q=Vetonit#catalog', action: 'Explore Vetonit products', resources: ['Technical data sheets', 'Color charts'],
+    links: [{ name: 'Tile fixing', href: '/products/saveto-502130' }, { name: 'Concrete fairing', href: '/products/saveto-sdswqq' }, { name: 'Floor preparation', href: '/contact#quote' }],
   },
   {
     id: 'insuwrap', number: '02', name: 'Insuwrap', tagline: 'Synthetic waterproofing membranes', logo: 'insuwrap.png',
@@ -25,10 +25,10 @@ const brands = [
   {
     id: 'saveto', number: '03', name: 'Saveto', tagline: 'Bonding, sealing & construction aids', logo: 'saveto.png',
     description: 'Construction chemicals for substrate bonding, waterproofing, joint sealing and concrete preparation. Review the relevant system and supporting documents for the job.',
-    applications: ['SBR and PVA bonding agents', 'Cementitious waterproofing slurries', 'Polyurethane joint sealants', 'Curing compounds, form release and grouts'],
+    applications: ['Plaster bonding agents', 'Cementitious waterproofing', 'Silicone joint sealants', 'Tile adhesives and grouts'],
     standards: 'Confirm any ASTM C1059, BS 6319 or other project requirements against the current documentation for the exact material.',
-    href: '/products/bonding-agents', action: 'Explore bonding & construction aids', resources: ['Product technical data', 'BOQ support pack'],
-    links: [{ name: 'Bonding agents', href: '/products/bonding-agents' }, { name: 'Joint sealants', href: '/products/polyurethane-joint-sealants' }, { name: 'Curing & form release', href: '/products/curing-compounds-form-release' }],
+    href: '/products?q=Saveto#catalog', action: 'Explore bonding & construction aids', resources: ['Product technical data', 'BOQ support pack'],
+    links: [{ name: 'Bonding agents', href: '/products?q=Saveto#catalog' }, { name: 'Joint sealants', href: '/products/saveto-r58' }, { name: 'Tile adhesives & grouts', href: '/products?q=Saveto#catalog' }],
   },
 ];
 

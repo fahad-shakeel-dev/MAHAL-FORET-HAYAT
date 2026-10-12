@@ -32,5 +32,8 @@ export const bulkProducts: ProductOverview[] = [
 
 for (const product of bulkProducts) {
   const key = product.slug === 'riyadh-opc-cement' ? 'riyadh-opc' : product.slug === 'saudi-opc-cement' ? 'saudi-opc' : product.slug === 'riyadh-white-cement' ? 'riyadh-white' : undefined;
-  if (key && key in cementReferences) Object.assign(product, cementReferences[key as keyof typeof cementReferences]);
+  if (key && key in cementReferences) {
+    const reference = cementReferences[key as keyof typeof cementReferences];
+    product.source = reference.source;
+  }
 }
