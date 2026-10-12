@@ -3,6 +3,7 @@ import { HomeProducts } from '@/components/HomeProducts';
 import { TrustedBrands } from '@/components/TrustedBrands';
 import { TransportServices } from '@/components/TransportServices';
 import { CompanyOverview } from '@/components/CompanyOverview';
+import { CompanyPurpose } from '@/components/CompanyPurpose';
 import { ClipboardList, ShieldCheck, Truck } from 'lucide-react';
 import { QuoteForm } from '@/components/HomeInteractions';
 import { TrustedPartner } from '@/components/TrustedPartner';
@@ -15,6 +16,7 @@ export default function Home() {
       <CompanyOverview />
       <TrustedBrands />
       <HomeProducts />
+      <CompanyPurpose />
 
       <TrustedPartner />
 
