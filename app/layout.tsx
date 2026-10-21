@@ -4,9 +4,10 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { ConstructionIntro } from "@/components/ConstructionIntro";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { siteUrl } from "@/lib/site";
+import { organization, pageMetadata, staticPages } from "@/lib/seo";
+import { StructuredData } from "@/components/StructuredData";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,8 +21,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Mahal Foret Hayat | Construction Material Solutions",
-  description: "Mahal Foret Hayat provides construction materials, technical guidance, and bulk quote support for projects in need of reliable building solutions.",
+  ...pageMetadata({ path: '/', ...staticPages['/'] }),
+  applicationName: organization.name,
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION },
   manifest: "/site.webmanifest",
   icons: {
     icon: [
@@ -44,12 +46,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body id="site-top" className="min-h-full flex flex-col bg-surface">
-        <LanguageProvider><ConstructionIntro>
+        <StructuredData data={{ '@context': 'https://schema.org', ...organization }} />
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-white focus:px-5 focus:py-3 focus:text-neutral-900">Skip to main content</a>
+        <LanguageProvider><div className="flex min-h-dvh flex-col">
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex-grow">{children}</main>
           <Footer />
           <WhatsAppButton />
-        </ConstructionIntro></LanguageProvider>
+        </div></LanguageProvider>
       </body>
     </html>
   );

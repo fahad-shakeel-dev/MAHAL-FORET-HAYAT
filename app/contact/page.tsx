@@ -1,4 +1,5 @@
-import type { Metadata } from 'next';
+import { PageSeo } from '@/components/PageSeo';
+import { pageMetadata, staticPages } from '@/lib/seo';
 import { ContactDesk } from '@/components/ContactDesk';
-export const metadata: Metadata = { title: 'Contact & Technical Support | MAHAL FORET HAYAT', description: 'Discuss construction materials, technical submittals, tender requirements and site delivery. Submit your project inquiry and supporting documents.' };
-export default function ContactPage() { return <ContactDesk />; }
+export const metadata = pageMetadata({ path: '/contact', ...staticPages['/contact'] });
+export default function ContactPage() { return <><PageSeo path="/contact" type="ContactPage" /><ContactDesk /></>; }

@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-12",
+  "environment": "Local Next.js production build at http://localhost:3100",
+  "lighthouseVersion": "13.5.0",
+  "formFactor": "mobile",
+  "canonicalPagesAudited": 67,
+  "internalLinkTargetsAudited": 67,
+  "build": "passed",
+  "lint": "passed",
+  "existingTestsPassed": 11,
+  "pages": [
+    {
+      "path": "/",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/brands",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/about",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/contact",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/products",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/products/saveto-t081s",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/products/riyadh-opc-cement",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/projects",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/projects/joud-united-2017",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    },
+    {
+      "path": "/products/pvc-tpo-membranes-insuwrap",
+      "scores": {
+        "best-practices": 100,
+        "seo": 100
+      }
+    }
+  ],
+  "limitations": "Lighthouse sampled all public page templates, not every product variant. Live deployment, indexing, sitelinks, rankings and real-world Core Web Vitals are not measured."
+}

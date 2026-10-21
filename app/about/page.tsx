@@ -1,14 +1,12 @@
-﻿import type { Metadata } from 'next';
+﻿import { PageSeo } from '@/components/PageSeo';
+import { pageMetadata, staticPages } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowDown, ArrowRight, BriefcaseBusiness, CalendarDays, Handshake, Users } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import styles from './about.module.css';
 
-export const metadata: Metadata = {
-  title: 'About | MAHAL FORET HAYAT',
-  description: 'Established in 2003, MAHAL FORET HAYAT supplies construction materials in Saudi Arabia with experienced leadership and dependable customer service.',
-};
+export const metadata = pageMetadata({ path: '/about', ...staticPages['/about'] });
 
 const facts = [
   { icon: CalendarDays, value: '2003', label: 'Established in Saudi Arabia' },
@@ -18,6 +16,7 @@ const facts = [
 
 export default function AboutPage() {
   return <div className="homepage page-rounded bg-white text-neutral-900">
+    <PageSeo path="/about" type="AboutPage" />
     <section className="relative isolate overflow-hidden bg-surface-dark text-white">
       <Image src="/images/warehouse.jpg" alt="Illustrative construction material storage and logistics" fill preload sizes="100vw" className="object-cover opacity-40" />
       <div className="absolute inset-0 bg-gradient-to-r from-surface-dark via-surface-dark/80 to-surface-dark/30" />

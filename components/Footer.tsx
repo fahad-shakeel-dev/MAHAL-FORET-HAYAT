@@ -1,6 +1,6 @@
-﻿import Image from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react';
 import { socialLinks } from '@/lib/social-links';
 import { contactDetails } from '@/lib/contact-details';
 import { deliveryLocations } from '@/lib/delivery-locations';
@@ -75,7 +75,7 @@ export function Footer() {
       <div>
         <div className="home-container flex flex-col justify-between gap-1 py-3 text-[11px] leading-6 text-neutral-500 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} MAHAL FORET HAYAT. All rights reserved.</p>
-          <a href="#site-top" className="inline-flex min-h-11 w-fit items-center gap-2 text-neutral-400 transition-colors hover:text-brand-300">Back to top<ArrowUp size={14} /></a>
+          <a href="https://www.versanex.site" className="inline-flex min-h-11 w-fit items-center text-neutral-400 transition-colors hover:text-brand-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-400">Developed by VersaNex</a>
         </div>
       </div>
     </footer>

@@ -1,11 +1,9 @@
-import type { Metadata } from 'next';
+import { PageSeo } from '@/components/PageSeo';
+import { pageMetadata, staticPages } from '@/lib/seo';
 import { BrandEcosystem } from '@/components/BrandEcosystem';
 
-export const metadata: Metadata = {
-  title: 'Our Brands | MAHAL FORET HAYAT',
-  description: 'Explore Riyadh Cement, Saudi Cement, Eastern, Vetonit, Insuwrap and Saveto in our construction material range.',
-};
+export const metadata = pageMetadata({ path: '/brands', ...staticPages['/brands'] });
 
 export default function BrandsPage() {
-  return <BrandEcosystem />;
+  return <><PageSeo path="/brands" type="CollectionPage" /><BrandEcosystem /></>;
 }

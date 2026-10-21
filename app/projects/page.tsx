@@ -1,17 +1,16 @@
-import type { Metadata } from 'next';
+import { PageSeo } from '@/components/PageSeo';
+import { pageMetadata, staticPages } from '@/lib/seo';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { ProjectCard } from '@/components/ProjectCard';
 import { projectStudies } from '@/lib/projects';
 
-export const metadata: Metadata = {
-  title: 'Projects & Clients | MAHAL FORET HAYAT',
-  description: 'Our ongoing construction material supply to Benaa BETCO and Alfanar Projects, and the Joud United building project from 2017.',
-};
+export const metadata = pageMetadata({ path: '/projects', ...staticPages['/projects'], image: '/images/projects/joud-building.jpeg' });
 
 export default function ProjectsPage() {
   return <div className="homepage page-rounded bg-white text-neutral-900">
+    <PageSeo path="/projects" type="CollectionPage" items={projectStudies.map(project => ({ name: project.title, path: `/projects/${project.slug}` }))} />
     <section className="bg-surface-dark py-10 text-white sm:py-14">
       <div className="home-container grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div>

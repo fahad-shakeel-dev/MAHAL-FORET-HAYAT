@@ -16,7 +16,7 @@ export async function collectTexts() {
     for (const entry of await fs.readdir(directory, { withFileTypes: true })) {
       const filename = path.join(directory, entry.name);
       if (entry.isDirectory()) await walk(filename);
-      else if (/\.tsx?$/.test(entry.name) && !/Language|social-links|translation-text/.test(entry.name)) {
+      else if (/\.tsx?$/.test(entry.name) && !/Language|social-links|translation-text/.test(entry.name) && !filename.includes(`${path.sep}social-preview${path.sep}`)) {
         const source = ts.createSourceFile(filename, await fs.readFile(filename, 'utf8'), ts.ScriptTarget.Latest, true, filename.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
         const add = value => {
           const text = normalize(value);

@@ -7,10 +7,15 @@ import { CompanyPurpose } from '@/components/CompanyPurpose';
 import { ClipboardList, ShieldCheck, Truck } from 'lucide-react';
 import { QuoteForm } from '@/components/HomeInteractions';
 import { TrustedPartner } from '@/components/TrustedPartner';
+import { PageSeo } from '@/components/PageSeo';
+import { pageMetadata, staticPages } from '@/lib/seo';
+
+export const metadata = pageMetadata({ path: '/', ...staticPages['/'] });
 
 export default function Home() {
   return (
     <div className="homepage home-root bg-white text-neutral-900">
+      <PageSeo path="/" />
       <HomeHero />
 
       <CompanyOverview />
