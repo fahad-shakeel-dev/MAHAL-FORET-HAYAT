@@ -26,7 +26,7 @@ for (const [heading, lines] of sections) {
   y -= 93;
 }
 rectangle(42, 72, 511, 1, '0.8 0.85 0.89');
-text('Sales email: mahalforethayat@gmail.com | Phone: 0510143060', 42, 55, 9);
+text('Sales email: info@fhtrading.store | Phone: 0510143060', 42, 55, 9);
 text('MAHAL FORET HAYAT | Construction material solutions', 42, 39, 8);
 text('Company overview | Contact our team for project information.', 42, 23, 8);
 

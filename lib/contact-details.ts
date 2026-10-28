@@ -1,4 +1,4 @@
-const email = 'mahalforethayat@gmail.com';
+const email = 'info@fhtrading.store';
 
 export const contactDetails = {
   email,
